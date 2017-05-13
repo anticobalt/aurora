@@ -12,5 +12,8 @@
 //
 //= require jquery
 //= require jquery_ujs
-//= require turbolinks
+
+// Uncommented to make application.js and application.css load properly
+// http://stackoverflow.com/a/35965674
+= require turbolinks
 //= require_tree .

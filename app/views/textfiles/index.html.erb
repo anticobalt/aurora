@@ -1,0 +1,16 @@
+<% #TODO: some sort of warning that says that using the back button %>
+<% # => will probably mess with data, because it probably does %>
+
+<h1>Home</h1>
+
+<div class="center">
+  <p class="navigation"><%= link_to "Change Directory", edit_user_path(User.first) %></p>
+  <ul id="textfiles">
+    <% @textfiles.each do |textfile| %>
+      <li class="content">
+        <%= textfile.id %>
+        <%= link_to (textfile.name + " @ " + textfile.location), textfile_path(textfile) %>
+      </li>
+    <% end %>
+  </ul>
+</div>

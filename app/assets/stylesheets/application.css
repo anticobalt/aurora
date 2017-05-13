@@ -9,7 +9,21 @@
  * compiled file so the styles you add here take precedence over styles defined in any other CSS/SCSS
  * files in this directory. Styles in this file should be added after the last require_* statement.
  * It is generally better to create a new file per style scope.
- *
  *= require_tree .
  *= require_self
  */
+
+@import url(https://fonts.googleapis.com/css?family=Raleway);
+
+div.alert{
+  margin-left: auto;
+  margin-right: auto;
+  background-color: grey;
+  text-align: center;
+  padding: 5px;
+  border-radius: 20px;
+  /* These styles don't work under when put under p.alert (idk why)
+  so I just put it here to be inherited by all text under div.alert */
+  font-size: 23px;
+  font-family: 'Raleway';
+}

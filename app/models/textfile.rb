@@ -1,0 +1,2 @@
+class Textfile < ApplicationRecord
+end

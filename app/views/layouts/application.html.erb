@@ -3,12 +3,17 @@
   <head>
     <title>Aurora</title>
     <%= csrf_meta_tags %>
-
-    <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload' %>
-    <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
+    <% # added extensions to 'application' to load files properly: http://stackoverflow.com/a/35965674 %>
+    <%= stylesheet_link_tag    'application.css', media: 'all', 'data-turbolinks-track': 'reload' %>
+    <%= javascript_include_tag 'application.js', 'data-turbolinks-track': 'reload' %>
   </head>
 
   <body>
+    <% if flash.notice %>
+      <div class="alert" onclick="this.style.display='none'">
+        <p class="alert"><%= flash.notice %></p>
+      </div>
+    <% end %>
     <%= yield %>
   </body>
 </html>

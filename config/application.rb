@@ -11,5 +11,9 @@ module Aurora
     # Settings in config/environments/* take precedence over those specified here.
     # Application configuration should go into files in config/initializers
     # -- all .rb files in that directory are automatically loaded.
+
+    # Stolen from stackoverflow.com/questions/32316033/convention-for-naming-poro-models-in-rails
+    # Allows for POROs to be accessed like models
+    config.autoload_paths += Dir[Rails.root.join('app', 'models', '{**}')]
   end
 end
