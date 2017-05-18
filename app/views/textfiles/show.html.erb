@@ -1,7 +1,8 @@
 <h1><%= @textfile.name %></h1>
+<h4><%= link_to "Edit File", edit_textfile_path(@textfile) %></h4>
 
 <div class="center">
-  <p class="content">
+  <p class="main_text">
     <% # Probably will break in Linux, as I think it handles newlines differently %>
     <% begin %>
       <% contents_list = @textfile.contents.split("\n") %>

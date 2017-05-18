@@ -14,6 +14,7 @@ class User < ApplicationRecord
 
   # updater.rb already adds slashes between filename and parent directory
   # => when constructing file location strings, so trailing slashes are redundant
+  # Remove them if user adds them
   def remove_trailing_slash
     if self.home[-1] == "\\"
       self.home = self.home[0..-2]

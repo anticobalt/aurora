@@ -2,12 +2,12 @@
 <% # => will probably mess with data, because it probably does %>
 
 <h1>Home</h1>
+<h4><%= link_to "Change Directory", edit_user_path(User.first) %></h4>
 
 <div class="center">
-  <p class="navigation"><%= link_to "Change Directory", edit_user_path(User.first) %></p>
   <ul id="textfiles">
     <% @textfiles.each do |textfile| %>
-      <li class="content">
+      <li class="main_text">
         <%= textfile.id %>
         <%= link_to (textfile.name + " @ " + textfile.location), textfile_path(textfile) %>
       </li>

@@ -1,0 +1,15 @@
+<%= form_for(@textfile) do |f| %>
+  <div class="center">
+    <p class="main_text">
+      <%= f.label :name, "Filename" %><br>
+      <%= f.text_field :name, class: "small_input_box" %><br>
+    </p>
+    <p class="main_text">
+      <%= f.label :contents, "File Contents" %><br>
+      <%= f.text_area :contents, rows: 30, class: "large_input_box" %>
+    </p>
+    <p>
+      <%= f.submit "Save File", class: "button" %>
+    </p>
+  </div>
+<% end %>

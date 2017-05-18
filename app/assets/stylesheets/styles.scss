@@ -1,0 +1,54 @@
+// The views of User and Textfile have a unified look,
+// so all their styles go here
+
+// @font-face{} didn't work for some reason
+@import url(https://fonts.googleapis.com/css?family=Raleway);
+@import url(https://fonts.googleapis.com/css?family=Merriweather+Sans);
+
+body{
+  background-color: rgb(173,216,230);
+}
+
+h1, h4{
+  text-align: center;
+  font-family: 'Merriweather Sans'
+}
+
+h4{
+  margin-top: -20px;
+}
+
+ul{
+  list-style-type: none;
+}
+
+li{
+  margin: 5px;
+}
+
+div.center{
+  margin-left: auto;
+  margin-right: auto;
+  width: 50%;
+}
+
+.main_text, .small_input_box, .large_input_box, .button, p.navigation{
+  font-family: 'Raleway';
+}
+
+.main_text, .small_input_box, .large_input_box{
+  font-size: 18px;
+}
+
+.small_input_box{
+  width: 40%;
+}
+
+.large_input_box{
+  width: 100%;
+  resize: none;
+}
+
+p.navigation{
+  font-size: 15px;
+}

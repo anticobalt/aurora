@@ -5,16 +5,16 @@
 
 <%= form_for(@user) do |f| %>
   <div class="center">
-    <p class="content">
+    <p class="main_text">
       <% # I was planning to have a button that would open a "Choose folder" dialog, %>
       <% # similar to what the ask_open_folder() method in Shoes for Ruby (http://shoesrb.com) %>
       <% # does, but I guess that's not easy to do in Rails. I might create it myself later. %>
       <%= f.label :home, "Location of Files" %><br>
-      <%= f.text_field :home, class: "input_box" %><br><br>
+      <%= f.text_field :home, class: "small_input_box" %><br><br>
       Example: C:\windows\system32
     </p>
     <p>
-      <%= f.submit "Save Preferences" %>
+      <%= f.submit "Save Preferences", class: "button" %>
     </p>
   </div>
 <% end %>
