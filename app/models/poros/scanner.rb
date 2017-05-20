@@ -27,7 +27,3 @@ class Scanner
   end
 
 end
-
-#s = Scanner.new
-#r = s.run "E:/Documents/Test Chamber/kk/New folder", 1, "txt"
-# puts r

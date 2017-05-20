@@ -1,5 +1,4 @@
-// The views of User and Textfile have a unified look,
-// so all their styles go here
+// Styles shared between models (i.e. all of them) go here
 
 // @font-face{} didn't work for some reason
 @import url(https://fonts.googleapis.com/css?family=Raleway);
@@ -20,19 +19,43 @@ h4{
 
 ul{
   list-style-type: none;
+  padding: 0;
 }
 
 li{
   margin: 5px;
 }
 
-div.center{
+div.center, div.parent{
   margin-left: auto;
   margin-right: auto;
-  width: 50%;
+  width: 1000px;
+  overflow: auto;
+  background-color: white;
+  padding-left: 20px;
+  padding-right: 20px;
 }
 
-.main_text, .small_input_box, .large_input_box, .button, p.navigation{
+div.parent{
+  display: flex;
+}
+
+div.left{
+  float: left;
+  width: 60%;
+  padding-right: 10%;
+  align-items: stretch;
+}
+
+div.right{
+  float: right;
+  width: 30%;
+  padding-left: 20px;
+  border-left: ridge;
+  align-items: stretch;
+}
+
+h2, .main_text, .small_input_box, .large_input_box, .button, p.navigation{
   font-family: 'Raleway';
 }
 

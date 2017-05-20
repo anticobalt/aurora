@@ -1,0 +1,13 @@
+<h1><%= @tag.name %></h1>
+<h4><%= link_to "Return to all files", user_path(@user) %></h4>
+
+<div class="center">
+  <ul>
+    <% @textfiles.each do |tf| %>
+      <li class="main_text">
+        <%= link_to tf.name, textfile_path(tf) %>
+      </li>
+    <% end %>
+  </ul>
+
+</div>

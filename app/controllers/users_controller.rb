@@ -5,10 +5,19 @@ class UsersController < ApplicationController
     # Only one user exists at a time
     @users = User.all
     if @users.length == 1
-      redirect_to textfiles_path
+      redirect_to user_path(User.first)
     else
       redirect_to new_user_path
     end
+  end
+
+  def show
+    # Essentially the index for Textfile and Tag
+    update = Updater.new
+    update.everything
+    @user = User.find(params[:id])
+    @textfiles = Textfile.all
+    @tags = ActsAsTaggableOn::Tag.all
   end
 
   def new
@@ -19,7 +28,7 @@ class UsersController < ApplicationController
     @user = User.new(user_params)
     if @user.save
       flash.notice = "Preferences saved."
-      redirect_to textfiles_path
+      redirect_to user_path(@user)
     else
       flash.notice = @user.errors.full_messages[0]
       redirect_to new_user_path
@@ -34,10 +43,10 @@ class UsersController < ApplicationController
     @user = User.find(params[:id])
     if @user.update(user_params)
       flash.notice = "Saved."
-      redirect_to textfiles_path
+      redirect_to user_path(@user)
     else
       flash.notice = @user.errors.full_messages[0]
-      redirect_to edit_user_path
+      redirect_to edit_user_path(@user)
     end
   end
 

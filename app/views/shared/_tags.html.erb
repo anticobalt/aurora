@@ -1,0 +1,11 @@
+<div class="right">
+  <h2>All Tags</h2>
+  <ul>
+    <% @tags.each do |tag| %>
+        <li class="main_text">
+          <%= link_to tag.name, tag_path(tag) %>
+          <%= " (#{tag.taggings_count})" %>
+        </li>
+    <% end %>
+  </ul>
+</div>

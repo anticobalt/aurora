@@ -1,8 +1,3 @@
-<% # Allows for updating of the user from Textfile index view %>
-<% if @user.nil? %>
-  <% @user = User.first %>
-<% end %>
-
 <%= form_for(@user) do |f| %>
   <div class="center">
     <p class="main_text">

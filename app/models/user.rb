@@ -1,3 +1,6 @@
+# The User model's only purpose is to remember app preferences
+# => in the form of Strings and stuff
+
 class User < ApplicationRecord
   validate :directory_valid?
   before_save :remove_trailing_slash
@@ -12,7 +15,7 @@ class User < ApplicationRecord
     end
   end
 
-  # updater.rb already adds slashes between filename and parent directory
+  # model_instance_updater.rb already adds slashes between filename and parent directory
   # => when constructing file location strings, so trailing slashes are redundant
   # Remove them if user adds them
   def remove_trailing_slash
