@@ -1,13 +1,7 @@
-<h1><%= @tag.name %></h1>
-<h4><%= link_to "Return to all files", user_path(@user) %></h4>
+<h1>Files Tagged with "<%= @tag.name %>"</h1>
+<h4><%= link_to("Return to all files", user_path(@user)) %></h4>
 
-<div class="center">
-  <ul>
-    <% @textfiles.each do |tf| %>
-      <li class="main_text">
-        <%= link_to tf.name, textfile_path(tf) %>
-      </li>
-    <% end %>
-  </ul>
-
+<div id="parent">
+  <%= render partial: "/shared/textfile_feed", locals: {textfiles: @textfiles} %>
+  <%= render partial: "/shared/tags", locals: {tags: @tags} %>
 </div>

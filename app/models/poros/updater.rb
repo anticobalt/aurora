@@ -8,7 +8,7 @@ class Updater
   def home
     # Generate all model instances from local files
     directory = User.first.home
-    paths = Scanner.new.all_file_paths directory, "txt"
+    paths = Scanner.new.all_file_paths(directory, "txt")
     create_or_update = ModelInstanceUpdater.new
     textfiles_in_directory = []
 

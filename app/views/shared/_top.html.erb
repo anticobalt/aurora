@@ -1,0 +1,18 @@
+<% nav_items = Hash.new %>
+<% nav_items["Home"] = user_path(@user) %>
+<% nav_items["Preferences"] = edit_user_path(@user) %>
+<% nav_items["Edit File"] = edit_textfile_path(@textfile) if defined? edit and edit == true %>
+
+<div id="header"><h1><%= title %></h1></div>
+
+<div id="navigation">
+  <ul class="nav_link">
+    <% nav_items.each do |name, link| %>
+      <% if name == "Edit File" %>
+        <li class="nav_link_right"><%= link_to(name, link) %></li>
+      <% else %>
+        <li class="nav_link"><%= link_to(name, link) %></li>
+      <% end %>
+    <% end %>
+  </ul>
+</div>

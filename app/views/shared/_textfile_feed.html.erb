@@ -1,0 +1,10 @@
+<div id="left">
+  <ul>
+    <% textfiles.each do |tf| %>
+      <li class="main_text">
+        <h2><%= tf.id %> - <%= link_to(tf.name, textfile_path(tf)) %></h2>
+        <ul><li><%= render partial: "/shared/text_preview", locals: {textfile: tf}  %></li></ul>
+      </li>
+    <% end %>
+  </ul>
+</div>

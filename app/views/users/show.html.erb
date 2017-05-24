@@ -1,19 +1,5 @@
-<h1>Home</h1>
-<h4><%= link_to "Change Directory", edit_user_path(@user) %></h4>
-
-<div class="center, parent">
-
-  <div class="left">
-    <ul>
-      <% @textfiles.each do |textfile| %>
-        <li class="main_text">
-          <%= textfile.id %>
-          <%= link_to (textfile.name + " @ " + textfile.location), textfile_path(textfile) %>
-        </li>
-      <% end %>
-    </ul>
-  </div>
-
-  <%= render partial: "/shared/tags" %>
-
+<%= render partial: "/shared/top", locals: {title: "Home"} %>
+<div id="parent">
+  <%= render partial: "/shared/textfile_feed", locals: {textfiles: @textfiles} %>
+  <%= render partial: "/shared/tags", locals: {tags: @tags} %>
 </div>

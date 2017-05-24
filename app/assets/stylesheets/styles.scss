@@ -5,7 +5,7 @@
 @import url(https://fonts.googleapis.com/css?family=Merriweather+Sans);
 
 body{
-  background-color: rgb(173,216,230);
+  background-color: #E2E2E2;
 }
 
 h1, h4{
@@ -26,28 +26,50 @@ li{
   margin: 5px;
 }
 
-div.center, div.parent{
+li.nav_link, li.nav_link_right{
+  margin-top: -10px;
+}
+
+li.nav_link{
+  float: left;
+}
+
+li.nav_link_right{
+  float: right;
+}
+
+#header, #navigation, #center, #parent{
   margin-left: auto;
   margin-right: auto;
   width: 1000px;
   overflow: auto;
-  background-color: white;
   padding-left: 20px;
   padding-right: 20px;
 }
 
-div.parent{
+#header, #navigation{
+  background-color: rgb(173,216,230);
+  border-bottom: solid;
+}
+
+#center, #parent{
+  background-color: rgb(173,216,230);
+  border-radius: 10px;
+}
+
+#parent{
   display: flex;
 }
 
-div.left{
+#left{
   float: left;
   width: 60%;
   padding-right: 10%;
   align-items: stretch;
+  word-wrap: break-word;
 }
 
-div.right{
+#right{
   float: right;
   width: 30%;
   padding-left: 20px;
@@ -55,11 +77,11 @@ div.right{
   align-items: stretch;
 }
 
-h2, .main_text, .small_input_box, .large_input_box, .button, p.navigation{
+h2, .main_text, .small_input_box, .large_input_box, .button, .nav_link{
   font-family: 'Raleway';
 }
 
-.main_text, .small_input_box, .large_input_box{
+.main_text, .small_input_box, .large_input_box, .nav_link{
   font-size: 18px;
 }
 
@@ -70,8 +92,4 @@ h2, .main_text, .small_input_box, .large_input_box, .button, p.navigation{
 .large_input_box{
   width: 100%;
   resize: none;
-}
-
-p.navigation{
-  font-size: 15px;
 }
