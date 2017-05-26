@@ -3,5 +3,10 @@ Rails.application.routes.draw do
   root to: 'users#index'
   resources :users
   resources :textfiles
-  resources :tags
+  resources :tags do
+    member do
+      get :mass_edit, :as => :mass_edit
+      post :do_mass_edit, :as => :do_mass_edit
+    end
+  end
 end

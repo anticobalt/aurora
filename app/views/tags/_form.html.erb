@@ -1,0 +1,19 @@
+<%= form_tag(url_for(:controller => "tags", :action => "do_mass_edit"), :method => "post") do |f| %>
+  <div id="center">
+    <ul><% @textfiles.each do |tf| %>
+      <li class="main_text">
+        <% checked = tf.tag_list.include? @tag.name %>
+        <h2>
+          <%= check_box_tag(tf.id, 1, checked) %>
+          <%= label_tag(tf.id, tf.name) %>
+          <% # PLACEHOLDER INLINE CSS %>
+          <button type="button" onclick="document.getElementById('div<%= tf.id %>').style.display = 'none'">Hide Preview</button>
+        </h2>
+        <div id="div<%= tf.id %>">
+          <ul><li><%= render partial: "/shared/text_preview", locals: {textfile: tf}  %></li></ul>
+        </div>
+      </li>
+    <% end %></ul>
+    <p><%= submit_tag "Save", class: "button" %></p>
+  </div>
+<% end %>

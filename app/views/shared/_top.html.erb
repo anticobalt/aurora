@@ -1,14 +1,21 @@
 <% nav_items = Hash.new %>
 <% nav_items["Home"] = user_path(@user) %>
 <% nav_items["Preferences"] = edit_user_path(@user) %>
-<% nav_items["Edit File"] = edit_textfile_path(@textfile) if defined? edit and edit == true %>
+
+<% if defined? link %>
+  <% if link == "edit_textfile" %>
+    <% nav_items["Edit"] = edit_textfile_path(@textfile) %>
+  <% elsif link == "edit_tag" %>
+    <% nav_items["Manage"] = mass_edit_tag_path(@tag) %>
+  <% end %>
+<% end %>
 
 <div id="header"><h1><%= title %></h1></div>
 
 <div id="navigation">
   <ul class="nav_link">
     <% nav_items.each do |name, link| %>
-      <% if name == "Edit File" %>
+      <% if name == "Edit" or name == "Manage" %>
         <li class="nav_link_right"><%= link_to(name, link) %></li>
       <% else %>
         <li class="nav_link"><%= link_to(name, link) %></li>
