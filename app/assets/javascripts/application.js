@@ -12,8 +12,5 @@
 //
 //= require jquery
 //= require jquery_ujs
-
-// Uncommented to make application.js and application.css load properly
-// http://stackoverflow.com/a/35965674
-= require turbolinks
+// CoffeeScript removed because stackoverflow.com/questions/28312460/object-doesnt-support-this-property-or-method-rails-windows-64bit
 //= require_tree .

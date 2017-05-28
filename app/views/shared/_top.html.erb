@@ -10,7 +10,18 @@
   <% end %>
 <% end %>
 
-<div id="header"><h1><%= title %></h1></div>
+<div id="header_container">
+  <div id="header">
+    <h1><%= title %></h1>
+  </div>
+  <div id="header-2">
+    <% if defined? link and link == "toggle_all_previews" %>
+      <button type="button" id="toggle_all_previews_button">
+        Toggle All Previews
+      </button>
+    <% end %>
+  </div>
+</div>
 
 <div id="navigation">
   <ul class="nav_link">

@@ -10,8 +10,10 @@ class TagsController < ApplicationController
   end
 
   def mass_edit
+    # Why does it feel like I'm abusing global variables
     @tag = ActsAsTaggableOn::Tag.find(params[:id])
     @textfiles = Textfile.all
+    @user = User.first
   end
 
   def do_mass_edit

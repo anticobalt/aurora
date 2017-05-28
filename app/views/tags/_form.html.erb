@@ -4,16 +4,17 @@
       <li class="main_text">
         <% checked = tf.tag_list.include? @tag.name %>
         <h2>
-          <%= check_box_tag(tf.id, 1, checked) %>
+          <%= check_box_tag(tf.id, 1, checked, class: "checkbox") %>
           <%= label_tag(tf.id, tf.name) %>
-          <% # PLACEHOLDER INLINE CSS %>
-          <button type="button" onclick="document.getElementById('div<%= tf.id %>').style.display = 'none'">Hide Preview</button>
+          <button type="button" class="toggle_preview_button <%= tf.id %>">
+            Toggle Preview
+          </button>
         </h2>
-        <div id="div<%= tf.id %>">
+        <div class="preview <%= tf.id %>">
           <ul><li><%= render partial: "/shared/text_preview", locals: {textfile: tf}  %></li></ul>
         </div>
       </li>
     <% end %></ul>
-    <p><%= submit_tag "Save", class: "button" %></p>
+    <p><%= submit_tag "Save", class: "submit_button" %></p>
   </div>
 <% end %>

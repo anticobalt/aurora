@@ -1,4 +1,5 @@
-// Styles shared between models (i.e. all of them) go here
+// Styles shared between models (i.e. almost all of them) go here.
+// Styles completely unique to a controller are in their relevant scss files.
 
 // @font-face{} didn't work for some reason
 @import url(https://fonts.googleapis.com/css?family=Raleway);
@@ -10,7 +11,7 @@ body{
 
 h1, h4{
   text-align: center;
-  font-family: 'Merriweather Sans'
+  font-family: 'Merriweather Sans';
 }
 
 h4{
@@ -38,11 +39,25 @@ li.nav_link_right{
   float: right;
 }
 
-#header, #navigation, #center, #parent{
+a{
+  text-decoration: none;
+}
+
+#header_container, #header,
+#navigation, #center, #parent{
   margin-left: auto;
   margin-right: auto;
-  width: 1000px;
   overflow: auto;
+}
+
+#header_container{
+  width: 1040px;
+  display: flex;
+  align-items: center;
+}
+
+#header, #header-2, #navigation, #center, #parent{
+  width: 1000px;
   padding-left: 20px;
   padding-right: 20px;
 }
@@ -50,6 +65,16 @@ li.nav_link_right{
 #header, #navigation{
   background-color: rgb(173,216,230);
   border-bottom: solid;
+}
+
+#header, #header-2{
+  align-items: stretch;
+}
+
+#header-2{
+  z-index: 2;
+  position: absolute;
+
 }
 
 #center, #parent{
@@ -61,11 +86,14 @@ li.nav_link_right{
   display: flex;
 }
 
+#left, #right{
+  align-items: stretch;
+}
+
 #left{
   float: left;
   width: 60%;
   padding-right: 10%;
-  align-items: stretch;
   word-wrap: break-word;
 }
 
@@ -74,10 +102,11 @@ li.nav_link_right{
   width: 30%;
   padding-left: 20px;
   border-left: ridge;
-  align-items: stretch;
 }
 
-h2, .main_text, .small_input_box, .large_input_box, .button, .nav_link{
+h2, .main_text, .small_input_box, .large_input_box,
+.submit_button, .toggle_preview_button, .nav_link,
+#toggle_all_previews_button{
   font-family: 'Raleway';
 }
 
@@ -92,4 +121,14 @@ h2, .main_text, .small_input_box, .large_input_box, .button, .nav_link{
 .large_input_box{
   width: 100%;
   resize: none;
+}
+
+#toggle_all_previews_button{
+  float: right;
+}
+
+.toggle_preview_button{
+  float: right;
+  // Manually centering stuff because I don't know how to do otherwise
+  margin-top: 10px;
 }

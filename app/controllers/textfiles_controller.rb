@@ -10,6 +10,7 @@ class TextfilesController < ApplicationController
   end
 
   def edit
+    @user = User.first
     @textfile = Textfile.find(params[:id])
   end
 

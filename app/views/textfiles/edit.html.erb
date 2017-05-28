@@ -1,3 +1,3 @@
-<h1>Editing <%= @textfile.name %></h1>
-
+<% title = "Editing '#{@textfile.name}'" %>
+<%= render partial: "/shared/top", locals: {title: title} %>
 <%= render partial: 'form' %>
