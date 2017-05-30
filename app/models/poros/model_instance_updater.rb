@@ -7,7 +7,7 @@ class ModelInstanceUpdater
       # Filepath's directory levels are seperated by "\" (see scanner.rb)
       tf.name = abs_path.split("\\")[-1]
       tf.location = abs_path
-      tf.tag_list.add("New")
+      tf.tag_list.add("new")
     end
     File.open(abs_path, "r") do |f|
       tf.contents = f.readlines.join("")

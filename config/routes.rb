@@ -5,8 +5,10 @@ Rails.application.routes.draw do
   resources :textfiles
   resources :tags do
     member do
-      get :mass_edit, :as => :mass_edit
-      post :do_mass_edit, :as => :do_mass_edit
+      get :edit, :as => :edit
+      post :update, :as => :update
+      get :rename, :as => :rename
+      post :do_rename, :as => :do_rename
     end
   end
 end

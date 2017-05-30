@@ -6,13 +6,21 @@
     "Ensure that the file is encoded in UTF-8."] %>
 <% end %>
 
-<%= render partial: "/shared/top", locals: {title: @textfile.name, link: "edit_textfile"} %>
+<% extra_nav_items = [] %>
+<% extra_nav_items << link_to("Edit File", edit_textfile_path(@textfile)) %>
+
+<%= render partial: "/shared/top", locals: {title: @textfile.name, extra_nav_items: extra_nav_items} %>
 
 <div id="parent">
   <div id="left">
-    <% # Works magically because of views/acts_as_taggable_on/tags/_tag.html.erb %>
-    <% # See: github.com/mbleigh/acts-as-taggable-on/wiki/Tutorial-for-Posts %>
-    <p class="main_text"><b>Tags:</b> <%= render @textfile.tags %></p>
+    <p class="main_text">
+      <% tags = [] %>
+      <b>Tags:</b>
+      <% # Manually creating a list of tag links because the gem doesn't seem to support it %>
+      <% @textfile.tags.each do |t| %>
+        <%= link_to(t.name.titleize, tag_path(t)) %><%= "," unless t.equal?(@textfile.tags.last) %>
+      <% end %>
+    </p>
     <p class="main_text"><b>Location:</b> <%= @textfile.location %></p>
     <hr>
     <p class="main_text">

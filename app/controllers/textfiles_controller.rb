@@ -18,7 +18,7 @@ class TextfilesController < ApplicationController
     @textfile = Textfile.find(params[:id])
     save = ModelInstanceUpdater.new
     save.textfile_from_form(@textfile, textfile_params)
-    flash.notice = "File #{@textfile.name} updated."
+    flash.notice = "File '#{@textfile.name}' updated."
     redirect_to textfile_path(@textfile)
   end
 

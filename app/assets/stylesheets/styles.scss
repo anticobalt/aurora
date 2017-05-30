@@ -5,6 +5,9 @@
 @import url(https://fonts.googleapis.com/css?family=Raleway);
 @import url(https://fonts.googleapis.com/css?family=Merriweather+Sans);
 
+// For "buttons"
+@import url(https://fonts.googleapis.com/css?family=Play);
+
 body{
   background-color: #E2E2E2;
 }
@@ -37,6 +40,7 @@ li.nav_link{
 
 li.nav_link_right{
   float: right;
+  padding-left: 5px;
 }
 
 a{
@@ -72,9 +76,8 @@ a{
 }
 
 #header-2{
-  z-index: 2;
+  z-index: 1;
   position: absolute;
-
 }
 
 #center, #parent{
@@ -105,8 +108,7 @@ a{
 }
 
 h2, .main_text, .small_input_box, .large_input_box,
-.submit_button, .toggle_preview_button, .nav_link,
-#toggle_all_previews_button{
+.submit_button, .nav_link{
   font-family: 'Raleway';
 }
 
@@ -123,12 +125,11 @@ h2, .main_text, .small_input_box, .large_input_box,
   resize: none;
 }
 
-#toggle_all_previews_button{
-  float: right;
-}
-
-.toggle_preview_button{
-  float: right;
-  // Manually centering stuff because I don't know how to do otherwise
-  margin-top: 10px;
+.close_button{
+  font-family: 'Play';
+  color: inherit;
+  position: absolute;
+  right: 0;
+  padding-right: 5px;
+  font-size: 25px;
 }

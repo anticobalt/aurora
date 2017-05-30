@@ -3,6 +3,53 @@
 // You can use Sass (SCSS) here: http://sass-lang.com/
 
 .checkbox{
+  // Doesn't work in Firefox
   width: 20px;
   height: 20px;
+}
+
+#toggle_all_previews_button, .toggle_preview_button{
+  font-family: 'Raleway';
+}
+
+#toggle_all_previews_button{
+  float: right;
+}
+
+.toggle_preview_button{
+  float: right;
+  // Manually centering stuff because I don't know how to do otherwise
+  margin-top: 10px;
+}
+
+#popup_wrapper{
+  display: none;
+  position: fixed;
+  z-index: 2;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  // Set color and transparency
+  background-color: rgba(49,49,49, 0.9);
+}
+
+#popup{
+  position: absolute;
+  width: 500px;
+  height: 150px;
+  background-color: white;
+  border-radius: 5px;
+  // Center self horizontally
+  left: 50%;
+  margin-left: -250px;
+  // Center self vertically
+  top: 50%;
+  margin-top: -75px;
+  // Center form elements
+  text-align: center;
+}
+
+.small_input_box{
+  width: 70%;
 }

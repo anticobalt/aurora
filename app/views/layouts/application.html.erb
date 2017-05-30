@@ -10,8 +10,8 @@
 
   <body>
     <% if flash.notice %>
-      <div class="alert" onclick="this.style.display='none'">
-        <p class="alert"><%= flash.notice %></p>
+      <div id="alert">
+        <p><%= flash.notice %></p>
       </div>
     <% end %>
     <%= yield %>

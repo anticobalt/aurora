@@ -15,8 +15,8 @@ $(document).ready(function(){
 // Watch button to hide/show associated preview
 $(document).ready(function(){
   $(".toggle_preview_button").click(function(){
-    // Button and associated preview div share a class
-    // namely, the id of the textfile model instance
+    // Button and associated preview div share a class.
+    // Namely, the id of the textfile model instance.
     file_id = $(this).attr("class").split(" ")[1];
     preview = $("div." + file_id);
     if (preview.css("display") == "none"){
@@ -24,5 +24,15 @@ $(document).ready(function(){
     } else {
       preview.css("display", "none");
     };
+  });
+});
+
+// Open/close rename prompt
+$(document).ready(function(){
+  $("#rename_tag_link").click(function(){
+    $("#popup_wrapper").css("display", "flex");
+  });
+  $(".close_button, .submit_button").click(function(){
+    $("#popup_wrapper").css("display", "none");
   });
 });
