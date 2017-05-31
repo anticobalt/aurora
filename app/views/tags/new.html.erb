@@ -1,0 +1,17 @@
+<% title = "Create Tag" %>
+
+<% extra_nav_items = [] %>
+<% extra_nav_items << link_to("Toggle All Previews", "#", {id: "toggle_all_previews_button"}) %>
+
+<%= render partial: "/shared/top", locals: {title: title, link: "toggle_all_previews", extra_nav_items: extra_nav_items} %>
+
+<%= form_tag(url_for(:controller => "tags", :action => "create"), :method => "post") do |f| %>
+  <div id="center">
+    <div class="justify_center"><p class="main_text">
+      <%= label_tag "name", "Tag Name" %><br>
+      <%= text_field_tag "name", nil, class: "small_input_box justify_center" %>
+    </p></div>
+    <%= render partial: "mass_edit" %>
+    <p><%= submit_tag "Save", class: "submit_button" %></p>
+  </div>
+<% end %>

@@ -1,5 +1,8 @@
 <div id="right">
-  <h2>All Tags</h2>
+  <div>
+    <h2 id="sidebar_title">All Tags</h2>
+    <span class="minor_text"><%= link_to("Create", new_tag_path) %></span>
+  </div>
   <ul>
     <% tags.each do |tag| %>
         <li class="main_text">

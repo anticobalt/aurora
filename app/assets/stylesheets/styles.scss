@@ -1,21 +1,72 @@
-// Styles shared between models (i.e. almost all of them) go here.
-// Styles completely unique to a controller are in their relevant scss files.
+/***************************************************************************
+Styles shared between models (i.e. almost all of them) go here.
+Styles completely unique to a controller are in their relevant scss files.
+
+Table of Contents:
+- Imports
+- Colors and Outlines
+- Fonts
+- Text Positioning
+- Box Positioning and Structure (divs, inputs, etc)
+****************************************************************************/
+
+/*****
+Imports
+*****/
 
 // @font-face{} didn't work for some reason
 @import url(https://fonts.googleapis.com/css?family=Raleway);
 @import url(https://fonts.googleapis.com/css?family=Merriweather+Sans);
-
 // For "buttons"
 @import url(https://fonts.googleapis.com/css?family=Play);
 
+/********************
+Colors and Outlines
+********************/
+
 body{
-  background-color: #E2E2E2;
+  background-color: #E2E2E2; // Light grey
 }
+
+a{
+  text-decoration: none;
+}
+
+#header, #navigation{
+  background-color: rgb(173,216,230); // Light blue
+  border-bottom: solid;
+}
+
+#center, #parent{
+  background-color: rgb(173,216,230); // Light blue
+  border-radius: 10px;
+}
+
+/*****
+Fonts
+*****/
 
 h1, h4{
   text-align: center;
   font-family: 'Merriweather Sans';
 }
+
+h2, .main_text, .minor_text, .small_input_box, .large_input_box,
+.submit_button, .nav_link{
+  font-family: 'Raleway';
+}
+
+.main_text, .small_input_box, .large_input_box, .nav_link{
+  font-size: 18px;
+}
+
+.minor_text{
+  font-size: 14px;
+}
+
+/***************
+Text Positioning
+***************/
 
 h4{
   margin-top: -20px;
@@ -40,12 +91,29 @@ li.nav_link{
 
 li.nav_link_right{
   float: right;
-  padding-left: 5px;
+  margin-left: 5px;
 }
 
-a{
-  text-decoration: none;
+.close_button{
+  font-family: 'Play';
+  color: inherit;
+  position: absolute;
+  right: 0;
+  margin-right: 5px;
+  font-size: 25px;
 }
+
+#sidebar_title{
+  display: inline-block;
+}
+
+div.justify_center, input.justify_center{
+  text-align: center;
+}
+
+/******************************
+Box Positioning and Structure
+******************************/
 
 #header_container, #header,
 #navigation, #center, #parent{
@@ -66,11 +134,6 @@ a{
   padding-right: 20px;
 }
 
-#header, #navigation{
-  background-color: rgb(173,216,230);
-  border-bottom: solid;
-}
-
 #header, #header-2{
   align-items: stretch;
 }
@@ -78,11 +141,6 @@ a{
 #header-2{
   z-index: 1;
   position: absolute;
-}
-
-#center, #parent{
-  background-color: rgb(173,216,230);
-  border-radius: 10px;
 }
 
 #parent{
@@ -107,29 +165,12 @@ a{
   border-left: ridge;
 }
 
-h2, .main_text, .small_input_box, .large_input_box,
-.submit_button, .nav_link{
-  font-family: 'Raleway';
-}
-
-.main_text, .small_input_box, .large_input_box, .nav_link{
-  font-size: 18px;
-}
-
 .small_input_box{
   width: 40%;
+  margin-top: 5px;
 }
 
 .large_input_box{
   width: 100%;
   resize: none;
-}
-
-.close_button{
-  font-family: 'Play';
-  color: inherit;
-  position: absolute;
-  right: 0;
-  padding-right: 5px;
-  font-size: 25px;
 }

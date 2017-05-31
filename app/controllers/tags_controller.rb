@@ -63,4 +63,37 @@ class TagsController < ApplicationController
     redirect_to :back
   end
 
+  def new
+    # Don't need @tag to create a tag
+    # As tags can be created by appending to Textfile's tag_list
+    @textfiles = Textfile.all
+    @user = User.first
+  end
+
+  def create
+    @user = User.first
+    @textfiles = Textfile.all
+
+    # Handle missing fields; second condition checks if numeric keys exist
+    # Numeric keys are model instance ids, so are non-zero. It's a hack.
+    if params["name"] == "" or params.keys.none? {|key| key.to_i.to_s == key}
+      flash.notice = "Invalid request. Missing tag name or files to be tagged."
+      redirect_to new_tag_path
+    else
+      # Similar to update, but less cases to handle
+      @textfiles.each do |tf|
+        tagged = !params[tf.id.to_s].nil?
+        if tagged
+          # append to tag_list from form data
+          tf.tag_list.add(params["name"])
+        end
+        tf.save
+      end
+      # Finish
+      flash.notice = "Tag '#{params["name"].titleize}' created."
+      tag = ActsAsTaggableOn::Tag.find_by(name: params["name"])
+      redirect_to tag_path(tag)
+    end
+  end
+
 end

@@ -1,0 +1,16 @@
+<ul><% @textfiles.each do |tf| %>
+  <li class="main_text">
+    <% # If creating a new tag, @tag is not defined %>
+    <% checked = tf.tag_list.include? @tag.name if defined? @tag %>
+    <h2>
+      <%= check_box_tag tf.id, 1, checked, class: "checkbox" %>
+      <%= label_tag tf.id, tf.name %>
+      <button type="button" class="toggle_preview_button <%= tf.id %>">
+        Toggle Preview
+      </button>
+    </h2>
+    <div class="preview <%= tf.id %>">
+      <ul><li><%= render partial: "/shared/text_preview", locals: {textfile: tf}  %></li></ul>
+    </div>
+  </li>
+<% end %></ul>

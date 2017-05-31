@@ -6,13 +6,19 @@
 <% extra_nav_items << link_to("Rename Tag", "#", {id: "rename_tag_link"}) %>
 
 <%= render partial: "/shared/top", locals: {title: title, link: "toggle_all_previews", extra_nav_items: extra_nav_items} %>
-<%= render partial: "form" %>
+
+<%= form_tag(url_for(:controller => "tags", :action => "update"), :method => "post") do |f| %>
+  <div id="center">
+    <%= render partial: "mass_edit" %>
+    <p><%= submit_tag "Save", class: "submit_button" %></p>
+  </div>
+<% end %>
 
 <div id="popup_wrapper">
   <%= form_tag(url_for(:controller => "tags", :action => "do_rename"), :method => "post") do |f| %>
     <div id="popup">
       <a class="close_button" href="#">X</a>
-      <p class="main_text"><%= label_tag @tag.name, "Tag Name", id: "popup_title" %></p>
+      <p class="main_text"><%= label_tag @tag.name, "Tag Name" %></p>
       <%= text_field_tag @tag.name, @tag.name, class: "small_input_box" %>
       <p><%= submit_tag "Save", class: "submit_button" %></p>
     </div>
