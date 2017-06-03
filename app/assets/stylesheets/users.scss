@@ -1,3 +1,16 @@
 // Place all the styles related to the Users controller here.
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
+
+#new_user_background{
+  width: 110%;
+  height: 110%;
+  position: fixed;
+  top: 0px;
+  left: -20px;
+}
+
+span#new_user_background_contents{
+  font-family: Permanent Marker;
+  font-size: 28px;
+}

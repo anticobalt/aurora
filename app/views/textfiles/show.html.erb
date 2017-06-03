@@ -9,7 +9,7 @@
 <% extra_nav_items = [] %>
 <% extra_nav_items << link_to("Edit File", edit_textfile_path(@textfile)) %>
 
-<%= render partial: "/shared/top", locals: {title: @textfile.name, extra_nav_items: extra_nav_items} %>
+<%= render partial: "/shared/top", locals: {title: "Viewing '#{@textfile.name}'", extra_nav_items: extra_nav_items} %>
 
 <div id="parent">
   <div id="left">

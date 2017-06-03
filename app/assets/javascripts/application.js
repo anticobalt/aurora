@@ -14,10 +14,3 @@
 //= require jquery_ujs
 // CoffeeScript removed because stackoverflow.com/questions/28312460/object-doesnt-support-this-property-or-method-rails-windows-64bit
 //= require_tree .
-
-// Hide flash.notice when clicked on
-$(document).ready(function(){
-  $("div#alert").click(function(){
-   $(this).css("display", "none");
- });
-});

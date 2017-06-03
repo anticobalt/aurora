@@ -15,5 +15,11 @@
       </div>
     <% end %>
     <%= yield %>
+    <% # The set href prevents page from automatically moving to top %>
+    <% # => since that's already handled by a JS function in application.css. %>
+    <% # <a> used instead of <p> so that mouse changes on mouseover %>
+    <% unless @creating_user %>
+      <a href="#" id="link_to_top">Return to Top</a>
+    <% end %>
   </body>
 </html>

@@ -1,2 +1,4 @@
-<h1>User Preferences</h1>
-<%= render partial: 'form' %>
+<% wrapper_class = "optional_popup_wrapper" %>
+<% popup_class = "optional_popup" %>
+
+<%= render partial: 'users/form', locals: {wrapper_class: wrapper_class, popup_class: popup_class} %>

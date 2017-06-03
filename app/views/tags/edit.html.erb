@@ -3,9 +3,9 @@
 <% extra_nav_items = [] %>
 <% extra_nav_items << link_to("Toggle All Previews", "#", {id: "toggle_all_previews_button"}) %>
 <% extra_nav_items << link_to("Delete Tag", tag_path(@tag), method: :delete, data: {Confirm: "Are you sure you want to delete this tag? Files will remain."}) %>
-<% extra_nav_items << link_to("Rename Tag", "#", {id: "rename_tag_link"}) %>
+<% extra_nav_items << link_to("Rename Tag", "#", {id: "rename_tag_link", class: "popup_link"}) %>
 
-<%= render partial: "/shared/top", locals: {title: title, link: "toggle_all_previews", extra_nav_items: extra_nav_items} %>
+<%= render partial: "/shared/top", locals: {title: title, extra_nav_items: extra_nav_items} %>
 
 <%= form_tag(url_for(:controller => "tags", :action => "update"), :method => "post") do |f| %>
   <div id="center">
@@ -14,9 +14,9 @@
   </div>
 <% end %>
 
-<div id="popup_wrapper">
+<div id="rename_wrapper" class="optional_popup_wrapper">
   <%= form_tag(url_for(:controller => "tags", :action => "do_rename"), :method => "post") do |f| %>
-    <div id="popup">
+    <div id="rename_popup" class="optional_popup">
       <a class="close_button" href="#">X</a>
       <p class="main_text"><%= label_tag @tag.name, "Tag Name" %></p>
       <%= text_field_tag @tag.name, @tag.name, class: "small_input_box" %>

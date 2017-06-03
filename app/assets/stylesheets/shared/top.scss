@@ -1,0 +1,48 @@
+/* Styles strictly associated with _top.html.erb */
+
+#header, #navigation{
+  background-color: rgb(173,216,230);
+  border-bottom: solid;
+}
+
+#header{
+  border-top-left-radius: 10px;
+  border-top-right-radius: 10px;
+}
+
+#header_container{
+  width: 1040px;
+  display: flex;
+  align-items: center;
+}
+
+#header, #header-2{
+  align-items: stretch;
+}
+
+// Unused as of now
+#header-2{
+  z-index: 1;
+  position: absolute;
+}
+
+li.nav_link, li.nav_link_right{
+  margin-top: -10px;
+}
+
+li.nav_link{
+  float: left;
+}
+
+li.nav_link_right{
+  float: right;
+  margin-left: 5px;
+}
+
+div.fixed-topcenter{
+  position: fixed;
+  top: 0;
+  // Manually centering
+  left: 50%;
+  transform: translate(-50%, 0);
+}

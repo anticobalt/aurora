@@ -1,2 +1,7 @@
-<h1>User Preferences</h1>
-<%= render partial: 'form' %>
+<% wrapper_class = "forced_popup_wrapper" %>
+<% popup_class = "forced_popup" %>
+
+<div id="new_user_background">
+  <span id="new_user_background_contents"><%= StringConstructor.new.lorem_ipsum %></span>
+  <%= render partial: 'form', locals: {wrapper_class: wrapper_class, popup_class: popup_class} %>
+</div>

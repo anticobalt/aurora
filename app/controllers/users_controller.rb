@@ -22,6 +22,7 @@ class UsersController < ApplicationController
 
   def new
     @user = User.new
+    @creating_user = true
   end
 
   def create

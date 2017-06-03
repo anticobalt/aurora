@@ -1,0 +1,91 @@
+/* Non-specific styles, and styles that apply to many different pages */
+
+body{
+  background-color: #233237;
+}
+
+a{
+  text-decoration: none;
+}
+
+h4{
+  margin-top: -20px;
+}
+
+ul{
+  list-style-type: none;
+  padding: 0;
+}
+
+li{
+  margin: 5px;
+}
+
+h1, h4{
+  text-align: center;
+  font-family: Merriweather Sans, sans-serif;
+}
+
+#alert{
+   margin-left: auto;
+   margin-right: auto;
+   background-color: grey;
+   text-align: center;
+   padding: 5px;
+   border-radius: 20px;
+   font-size: 23px;
+   font-family: Raleway, sans-serif;
+ }
+
+#header_container, #header,
+#navigation, #center, #parent{
+  margin-left: auto;
+  margin-right: auto;
+  overflow: auto;
+}
+
+#header, #header-2, #navigation, #center, #parent{
+  width: 1000px;
+  padding-left: 20px;
+  padding-right: 20px;
+}
+
+a#link_to_top{
+  position: fixed;
+  bottom: 0;
+  right: 0;
+  margin: 20px;
+  padding: 10px;
+  border-radius: 5px;
+  background-color: #0769ad;
+  color: white;
+  font-family: Raleway, sans-serif;
+  font-weight: bold;
+}
+
+h2, .main_text, .minor_text, .small_input_box, .large_input_box,
+.submit_button, .nav_link{
+  font-family: 'Raleway', sans-serif;
+}
+
+.main_text, .small_input_box, .large_input_box, .nav_link{
+  font-size: 18px;
+}
+
+.minor_text{
+  font-size: 14px;
+}
+
+.small_input_box{
+  width: 70%;
+  margin-top: 5px;
+}
+
+.large_input_box{
+  width: 100%;
+  resize: none;
+}
+
+div.justify_center, input.justify_center{
+  text-align: center;
+}
