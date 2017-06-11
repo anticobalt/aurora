@@ -27,6 +27,7 @@ h1, h4{
 }
 
 #alert{
+  position: relative;
    margin-left: auto;
    margin-right: auto;
    background-color: grey;
@@ -35,6 +36,7 @@ h1, h4{
    border-radius: 20px;
    font-size: 23px;
    font-family: Raleway, sans-serif;
+   z-index: 3;
  }
 
 #header_container, #header,
@@ -84,6 +86,10 @@ h2, .main_text, .minor_text, .small_input_box, .large_input_box,
 .large_input_box{
   width: 100%;
   resize: none;
+}
+
+.submit_button{
+  margin-bottom: 20px;
 }
 
 div.justify_center, input.justify_center{

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170519002310) do
+ActiveRecord::Schema.define(version: 20170604223517) do
 
   create_table "taggings", force: :cascade do |t|
     t.integer  "tag_id"
@@ -49,6 +49,7 @@ ActiveRecord::Schema.define(version: 20170519002310) do
     t.string   "home"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.text     "data"
   end
 
 end

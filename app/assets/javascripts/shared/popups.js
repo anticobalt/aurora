@@ -38,3 +38,40 @@ $(document).ready(function(){
     verticallyCenter($(this));
   });
 });
+
+// Left and right button behaviour for pages in popups
+$(document).ready(function(){
+  $(".left_button").each(function(){
+    var page_number = parseInt($(this).attr("id").slice(-1));
+    var active = true
+    // If on the first page, arrow does nothing
+    if (page_number == 1){
+      $(this).css("cursor", "default");
+      active = false
+    };
+    // On click, hide current page and show previous page
+    $(this).click(function(){
+      if (active){
+        $("div#page_" + String(page_number)).css("display", "none");
+        $("div#page_" + String(page_number - 1)).css("display", "block");
+      };
+    });
+  });
+  $(".right_button").each(function(){
+    var page_number = parseInt($(this).attr("id").slice(-1));
+    var total_pages = $("div.popup_page").length;
+    var active = true
+    // If on the last page, arrow does nothing
+    if (page_number == total_pages){
+      $(this).css("cursor", "default");
+      active = false;
+    };
+    // On click, hide current page and show previous page
+    $(this).click(function(){
+      if (active){
+        $("div#page_" + String(page_number)).css("display", "none");
+        $("div#page_" + String(page_number + 1)).css("display", "block");
+      };
+    });
+  });
+});

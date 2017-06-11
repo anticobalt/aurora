@@ -1,0 +1,44 @@
+<div id="new_user_background">
+  <span id="new_user_background_contents"><%= StringConstructor.new.lorem_ipsum %></span>
+</div>
+
+<div class="forced_popup_wrapper">
+  <%= form_tag(url_for(:controller => "users", :action => "verify_file_changes_for"), :method => "post") do |f| %>
+    <div class="forced_popup">
+      <% @user.data.each.with_index(1) do |hash, i| %>
+        <% transferor = hash[:old_file] %>
+        <% potential_transferees = hash[:new_files] %>
+        <div class="popup_page" id="page_<%= i %>">
+          <p class="main_text">
+            Please verify the following file changes
+            so that old file data can be applied to new files:<br>
+            File "<%= transferor.location %>" was <%= hash[:type] %> to
+          </p>
+          <ul>
+            <% potential_transferees.each do |t| %>
+              <li class="main_text">
+                <% if hash[:type] == "renamed" then text = t.name else text = t.location end %>
+                <%= radio_button_tag transferor.id, t.id, false %>
+                <%= label_tag t.id, text %>
+              </li>
+            <% end %>
+            <li class="main_text">
+              <%= radio_button_tag transferor.id, "none", false %>
+              <%= label_tag "none", "None of the above" %>
+            </li>
+          </ul>
+          <p class="main_text">
+            <a id="left_<%= i %>" class="left_button" href="#">
+              <
+            </a>
+            Page <%= i %> of <%= @user.data.length %>
+            <a id="right_<%= i %>" class="right_button" href="#">
+              >
+            </a>
+          </p>
+        </div>
+      <% end %>
+      <%= submit_tag "Confirm", class: "submit_button" %>
+    </div>
+  <% end %>
+</div>

@@ -24,6 +24,7 @@
   width: 500px;
   background-color: white;
   border-radius: 5px;
+  padding: 10px;
   // Center self horizontally
   left: 50%;
   margin-left: -250px;
@@ -33,11 +34,22 @@
   text-align: center;
 }
 
-.close_button{
+.close_button, .left_button, .right_button{
   font-family: 'Play';
   color: inherit;
+  font-size: 25px;
+}
+
+.close_button{
   position: absolute;
   right: 0;
   margin-right: 5px;
-  font-size: 25px;
+}
+
+.popup_page{
+  display: none;
+}
+
+#page_1{
+  display: block;
 }
