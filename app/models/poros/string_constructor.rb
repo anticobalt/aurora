@@ -15,16 +15,34 @@ class StringConstructor
     end
 
     if text.length < 1000 and lines.length < 20
-      return text
+      snip = text
     else
       # If text is long despite not having a lot of lines
       if text.scan(/.{1,70}/).length > lines.length
-        return text[0...20*70] + (text[20*70..-1].split("\n")[0]).to_s
+        snip = text[0...20*70] + (text[20*70..-1].split("\n")[0]).to_s
       # If text is short character-wise but has a lot of lines
       elsif lines.length >= 20
-        return lines[0..20].join("\n")
+        snip = lines[0..20].join("\n")
       end
     end
+    return self.bbcode_to_html(snip)
+  end
+
+  def bbcode_to_html(text)
+    # Supports bold, italics, underline, strikethrough
+    converted_text = text.dup
+    bb_html_pairs = {"[b]": "<strong>",
+                      "[/b]": "</strong>",
+                      "[i]": "<em>",
+                      "[/i]": "</em>",
+                      "[u]": "<u>",
+                      "[/u]": "</u>",
+                      "[s]": "<s>",
+                      "[/s]": "</s>",}
+    bb_html_pairs.each do |bb, html|
+      converted_text.gsub!(bb.to_s, html)
+    end
+    return converted_text
   end
 
   def lorem_ipsum

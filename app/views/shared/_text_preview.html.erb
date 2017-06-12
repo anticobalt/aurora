@@ -1,8 +1,8 @@
 <% snip = StringConstructor.new.snippet(textfile.contents) %>
 
 <% snip.split("\n").each do |line| %>
-  <%= line %><br>
+  <%= raw line %><br>
 <% end %>
-<% unless snip == textfile.contents %>
+<% unless snip == textfile.contents or snip.downcase.include? "error" %>
   <%= link_to("Read more", textfile_path(textfile)) %>
 <% end %>

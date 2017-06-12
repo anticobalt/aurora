@@ -1,0 +1,11 @@
+<% if wysiwyg # newline based formatting %>
+  <% if line == "" %>
+    <br>
+  <% else %>
+    <%= raw line %><br>
+  <% end %>
+<% else # paragraph based formatting; blank lines removed %>
+  <% unless line == "" %>
+    <%= raw line %>
+  <% end %>
+<% end %>

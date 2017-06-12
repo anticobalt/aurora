@@ -1,6 +1,7 @@
-<% # Probably will break in Linux, as I think it handles newlines differently %>
 <% begin %>
-  <% contents_list = @textfile.contents.split("\n") %>
+  <% contents = StringConstructor.new.bbcode_to_html(@textfile.contents) %>
+  <% # Probably will break in Linux. %>
+  <% contents_list = contents.split("\n") %>
 <% rescue ArgumentError %>
   <% contents_list = ["ERROR: invalid characters found in file.", "",
     "Ensure that the file is encoded in UTF-8."] %>
@@ -23,11 +24,17 @@
     </p>
     <p class="main_text"><b>Location:</b> <%= @textfile.location %></p>
     <hr>
-    <p class="main_text">
-      <% contents_list.each do |line| %>
-        <%= line %><br>
+    <% contents_list.each do |line| %>
+      <% unless @wysiwyg %>
+        <p class="main_text" %>
+          <%= render partial: "line", locals: {wysiwyg: @wysiwyg, line: line} %>
+        </p>
+      <% else %>
+        <span class="main_text" %>
+          <%= render partial: "line", locals: {wysiwyg: @wysiwyg, line: line} %>
+        </span>
       <% end %>
-    </p>
+    <% end %>
     <p class="nav_link"><%= link_to("Return to all files", user_path(@user)) %></p>
   </div>
   <%= render partial: "/shared/tags", locals: {tags: @tags} %>
