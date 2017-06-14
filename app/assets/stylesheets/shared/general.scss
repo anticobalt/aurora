@@ -8,8 +8,8 @@ a{
   text-decoration: none;
 }
 
-h4{
-  margin-top: -20px;
+h3{
+  margin-bottom: -10px;
 }
 
 ul{
@@ -21,7 +21,7 @@ li{
   margin: 5px;
 }
 
-h1, h4{
+h1{
   text-align: center;
   font-family: Merriweather Sans, sans-serif;
 }
@@ -65,7 +65,7 @@ a#link_to_top{
   font-weight: bold;
 }
 
-h2, .main_text, .minor_text, .small_input_box, .large_input_box,
+h2, h3, .main_text, .minor_text, .small_input_box, .large_input_box,
 .submit_button, .nav_link{
   font-family: 'Raleway', sans-serif;
 }

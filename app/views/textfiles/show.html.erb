@@ -27,11 +27,17 @@
     <% contents_list.each do |line| %>
       <% unless @wysiwyg %>
         <p class="main_text" %>
-          <%= render partial: "line", locals: {wysiwyg: @wysiwyg, line: line} %>
+          <% unless line == "" %>
+            <%= raw line %>
+          <% end %>
         </p>
       <% else %>
         <span class="main_text" %>
-          <%= render partial: "line", locals: {wysiwyg: @wysiwyg, line: line} %>
+          <% if line == "" %>
+            <br>
+          <% else %>
+            <%= raw line %><br>
+          <% end %>
         </span>
       <% end %>
     <% end %>

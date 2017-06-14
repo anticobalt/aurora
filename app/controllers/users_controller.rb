@@ -57,10 +57,10 @@ class UsersController < ApplicationController
     @user = User.find(params[:id])
     if @user.update(user_params)
       flash.notice = "Saved."
-      redirect_to user_path(@user)
+      redirect_back(fallback_location: user_path(@user))
     else
       flash.notice = @user.errors.full_messages[0]
-      redirect_to edit_user_path(@user)
+      redirect_back(fallback_location: user_path(@user))
     end
   end
 

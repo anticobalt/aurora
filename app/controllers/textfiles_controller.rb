@@ -8,7 +8,11 @@ class TextfilesController < ApplicationController
     @tags = ActsAsTaggableOn::Tag.all
     @textfile = Textfile.find(params[:id])
     # If true, contents closely resemble original txt file's formatting
-    @wysiwyg = true
+    if @user.textfile_display_mode == "wysiwyg"
+      @wysiwyg = true
+    elsif @user.textfile_display_mode == "alternative"
+      @wysiwyg = false
+    end
   end
 
   def edit

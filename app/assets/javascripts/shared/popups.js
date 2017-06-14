@@ -22,7 +22,7 @@ $(document).ready(function(){
     verticallyCenter(popup);
     return false;
   });
-  $(".close_button, .submit_button").click(function(){
+  $(".close_button").click(function(){
     // wrapper will be non-null because previous function always run first
     wrapper.css("display", "none");
     return false;

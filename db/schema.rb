@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170604223517) do
+ActiveRecord::Schema.define(version: 20170614001643) do
 
   create_table "taggings", force: :cascade do |t|
     t.integer  "tag_id"
@@ -47,9 +47,10 @@ ActiveRecord::Schema.define(version: 20170604223517) do
 
   create_table "users", force: :cascade do |t|
     t.string   "home"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "created_at",            null: false
+    t.datetime "updated_at",            null: false
     t.text     "data"
+    t.string   "textfile_display_mode"
   end
 
 end
