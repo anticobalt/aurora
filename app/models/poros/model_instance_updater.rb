@@ -3,11 +3,11 @@
 class ModelInstanceUpdater
 
   # Unable to discern brand new files from files that have been moved/renamed
-  def textfile_from_file(abs_path)
+  def self.textfile_from_file(abs_path)
     tf = Textfile.find_by(location: abs_path)
     if tf.nil?
       tf = Textfile.new
-      # Filepath's directory levels are seperated by "\" (see scanner.rb)
+      # Filepath's directory levels are seperated by "\" (see disk_scanner.rb)
       tf.name = abs_path.split("\\")[-1]
       tf.location = abs_path
       tf.tag_list.add("new")
@@ -22,7 +22,7 @@ class ModelInstanceUpdater
     return [tf, new]
   end
 
-  def textfile_from_form(textfile, textfile_params, new_parent_directory)
+  def self.textfile_from_form(textfile, textfile_params, new_parent_directory)
     # Check that name has no slashes
     if textfile_params[:name].include?("\\") or textfile_params[:name].include?("/")
       return false
@@ -32,12 +32,10 @@ class ModelInstanceUpdater
     old_name = textfile.name
     textfile.update(textfile_params)
     # Sanitize file path string, update location and save
-    construct = StringConstructor.new
-    textfile.location = construct.sanitized_filepath(new_parent_directory + "\\" + textfile.name)
+    textfile.location = StringConstructor.sanitized_filepath(new_parent_directory + "\\" + textfile.name)
     textfile.save
     # Update the local file
-    write_to_associated_file = Writer.new
-    unless write_to_associated_file.textfile(textfile.location, old_location)
+    unless DiskWriter.textfile(textfile.location, old_location)
       # Revert name and location if the write failed, as textfile is now corrupt
       # Note that contents do NOT revert
       textfile.name = old_name
@@ -52,7 +50,7 @@ class ModelInstanceUpdater
   # Uses form data to check if tag transfers set by user are valid,
   # => valid being that multiple old files aren't being pointed to same new file.
   # If valid, do the transfer. If not, return false.
-  def tag_transfer(form_data)
+  def self.transfer_tags(form_data)
     # Parse the raw form data
     transfers = {}
     form_data.each do |key, value|

@@ -1,8 +1,7 @@
 class TagsController < ApplicationController
 
   def show
-    update = Updater.new
-    update.tags
+    ModelInstanceRefresher.tags
     @user = User.first
     @tag = ActsAsTaggableOn::Tag.find(params[:id])
     @tags = ActsAsTaggableOn::Tag.all

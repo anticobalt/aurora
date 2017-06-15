@@ -17,9 +17,8 @@ class UsersController < ApplicationController
     @user = User.find(params[:id])
     @textfiles = Textfile.by_join_date
     @tags = ActsAsTaggableOn::Tag.all
-    update = Updater.new
     # Changes is an array of hashes
-    changes = update.everything
+    changes = ModelInstanceRefresher.everything
     unless changes.empty?
       # @user.data should be an empty array, but to be foolproof...
       @user.data = []
@@ -73,8 +72,7 @@ class UsersController < ApplicationController
 # => tags can be migrated from old to new file model instances
   def verify_file_changes_for
     @user = User.find(params[:id])
-    perform = ModelInstanceUpdater.new
-    if perform.tag_transfer params
+    if ModelInstanceUpdater.transfer_tags params
       flash.notice = "Files were successfully updated."
       @user.data = []
       @user.save

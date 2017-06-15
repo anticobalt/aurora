@@ -2,13 +2,13 @@ require 'pathname'
 
 class StringConstructor
 
-  def parent_directory(abs_path)
+  def self.parent_directory(abs_path)
     File.dirname(abs_path)
   end
 
   # E.g. an abs_path of "C:\\Documents\\foo\\bar.png" and root of "C:\\"
   # => yields "Documents\\foo"; used by Textfile form
-  def relative_directory(abs_path, root)
+  def self.relative_directory(abs_path, root)
     # File path in style foo/bar, while everywhere else it's foo\bar
     relative_path = Pathname.new(abs_path).relative_path_from Pathname.new(root)
     relative_path_str = relative_path.to_s
@@ -23,7 +23,7 @@ class StringConstructor
   end
 
   # Gets rid of extra or incorrect slashes created by concatenation of path partials or user error
-  def sanitized_filepath(path)
+  def self.sanitized_filepath(path)
     arr = path.split("\\")
     arr2 = []
     arr.each {|obj| arr2 += obj.split("/") }
@@ -32,7 +32,7 @@ class StringConstructor
     return sanitized_arr.join("\\")
   end
 
-  def snippet(text)
+  def self.snippet(text)
     begin
       lines = text.split("\n")
     rescue ArgumentError
@@ -53,7 +53,7 @@ class StringConstructor
     return self.bbcode_to_html(snip)
   end
 
-  def bbcode_to_html(text)
+  def self.bbcode_to_html(text)
     # Supports bold, italics, underline, strikethrough
     converted_text = text.dup
     bb_html_pairs = {"[b]": "<strong>",
@@ -70,7 +70,7 @@ class StringConstructor
     return converted_text
   end
 
-  def lorem_ipsum
+  def self.lorem_ipsum
     # Yes, I manually copied this from an online generator and formatted it.
     # Not gonna install a gem just to generate some pseudo-Latin.
     "Lorem ipsum dolor sit amet, ei veniam nonumy honestatis sit, id vim nonumy impetus torquatos, " +

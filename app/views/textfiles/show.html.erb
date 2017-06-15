@@ -1,5 +1,5 @@
 <% begin %>
-  <% contents = StringConstructor.new.bbcode_to_html(@textfile.contents) %>
+  <% contents = StringConstructor.bbcode_to_html(@textfile.contents) %>
   <% # Probably will break in Linux. %>
   <% contents_list = contents.split("\n") %>
 <% rescue ArgumentError %>

@@ -12,8 +12,7 @@ class TextfilesController < ApplicationController
     @textfile = Textfile.new
     @user = User.first
     pd = @user.home + "\\" + params[:textfile][:location_partial]
-    save = ModelInstanceUpdater.new
-    if save.textfile_from_form(@textfile, textfile_params, pd)
+    if ModelInstanceUpdater.textfile_from_form(@textfile, textfile_params, pd)
       flash.notice = "File '#{@textfile.name}' created."
       redirect_to textfile_path(@textfile)
     else
@@ -23,8 +22,7 @@ class TextfilesController < ApplicationController
   end
 
   def show
-    update = Updater.new
-    update.tags
+    ModelInstanceRefresher.tags
     @user = User.first
     @tags = ActsAsTaggableOn::Tag.all
     @textfile = Textfile.find(params[:id])
@@ -39,16 +37,14 @@ class TextfilesController < ApplicationController
   def edit
     @user = User.first
     @textfile = Textfile.find(params[:id])
-    create = StringConstructor.new
-    @relative_dir = create.relative_directory(@textfile.location, @user.home)
+    @relative_dir = StringConstructor.relative_directory(@textfile.location, @user.home)
   end
 
   def update
     @textfile = Textfile.find(params[:id])
     @user = User.first
     pd = @user.home + "\\" + params[:textfile][:location_partial]
-    save = ModelInstanceUpdater.new
-    if save.textfile_from_form(@textfile, textfile_params, pd)
+    if ModelInstanceUpdater.textfile_from_form(@textfile, textfile_params, pd)
       flash.notice = "File '#{@textfile.name}' updated."
       redirect_to textfile_path(@textfile)
     else

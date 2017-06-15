@@ -1,9 +1,9 @@
 # Reads and checks directories/files
 
-class Scanner
+class DiskScanner
 
   # Finds files of a certain type/file-extension in all subdirectories, recursively
-  def all_file_paths(directory, extension=nil)
+  def self.all_file_paths(directory, extension=nil)
     files = []
     Dir.entries(directory).each do |obj|
       # Generate object's absolute path
@@ -22,7 +22,7 @@ class Scanner
     return files
   end
 
-  def directory_valid?(directory)
+  def self.directory_valid?(directory)
     Dir.exists? directory
   end
 

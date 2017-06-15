@@ -12,7 +12,7 @@ class User < ApplicationRecord
       errors.add("Missing field:", "Home directory not entered.")
     # Blank home directory is invalid, and satisfies the below condition,
     # but Rails can't work with an empty string as the message key
-    elsif not Scanner.new.directory_valid? self.home
+  elsif not DiskScanner.directory_valid? self.home
       errors.add(self.home, "is an invalid directory.")
     end
   end

@@ -3,18 +3,16 @@
 
 require 'fileutils'
 
-class Writer
+class DiskWriter
 
-  def textfile(new_abs_path, old_abs_path=nil)
-    construct = StringConstructor.new
-    file = Scanner.new
+  def self.textfile(new_abs_path, old_abs_path=nil)
     # Duplicate used for argument because the original is frozen/immutable
     new_name = new_abs_path.split("\\")[-1]
-    new_pd = construct.parent_directory new_abs_path
+    new_pd = StringConstructor.parent_directory new_abs_path
 
     unless old_abs_path.nil?
       old_name = old_abs_path.split("\\")[-1]
-      old_pd = construct.parent_directory old_abs_path
+      old_pd = StringConstructor.parent_directory old_abs_path
       if new_pd != old_pd
         # Instead of moving, delete and recreate
         File.delete(old_abs_path)

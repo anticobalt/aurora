@@ -2,6 +2,6 @@
 <% popup_class = "forced_popup" %>
 
 <div id="new_user_background">
-  <span id="new_user_background_contents"><%= StringConstructor.new.lorem_ipsum %></span>
+  <span id="new_user_background_contents"><%= StringConstructor.lorem_ipsum %></span>
 </div>
 <%= render partial: 'form', locals: {wrapper_class: wrapper_class, popup_class: popup_class} %>
