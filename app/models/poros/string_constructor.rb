@@ -9,9 +9,10 @@ class StringConstructor
   # E.g. an abs_path of "C:\\Documents\\foo\\bar.png" and root of "C:\\"
   # => yields "Documents\\foo"; used by Textfile form
   def relative_directory(abs_path, root)
-    # File path in style foo/bar, while everywhere else it's foo\\bar
+    # File path in style foo/bar, while everywhere else it's foo\bar
     relative_path = Pathname.new(abs_path).relative_path_from Pathname.new(root)
-    relative_path_str = relative_path.to_s.gsub!("/", "\\")
+    relative_path_str = relative_path.to_s
+    relative_path_str.gsub!("/", "\\")
     dir = self.parent_directory relative_path_str
     # Handle file being in root level
     unless dir == "."
@@ -19,6 +20,16 @@ class StringConstructor
     else
       return ""
     end
+  end
+
+  # Gets rid of extra or incorrect slashes created by concatenation of path partials or user error
+  def sanitized_filepath(path)
+    arr = path.split("\\")
+    arr2 = []
+    arr.each {|obj| arr2 += obj.split("/") }
+    sanitized_arr = []
+    arr2.each {|obj| sanitized_arr << obj unless obj == ""}
+    return sanitized_arr.join("\\")
   end
 
   def snippet(text)

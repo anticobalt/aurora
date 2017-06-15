@@ -1,4 +1,4 @@
-# Reads and checks for directories/files
+# Reads and checks directories/files
 
 class Scanner
 

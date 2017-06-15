@@ -23,15 +23,30 @@ class ModelInstanceUpdater
   end
 
   def textfile_from_form(textfile, textfile_params, new_parent_directory)
-    # Remember old location and update name and contents
+    # Check that name has no slashes
+    if textfile_params[:name].include?("\\") or textfile_params[:name].include?("/")
+      return false
+    end
+    # Remember old location/name (the two attributes that might be invalid) and update
     old_location = textfile.location
+    old_name = textfile.name
     textfile.update(textfile_params)
-    # Update location
-    textfile.location = new_parent_directory + "\\" + textfile.name
+    # Sanitize file path string, update location and save
+    construct = StringConstructor.new
+    textfile.location = construct.sanitized_filepath(new_parent_directory + "\\" + textfile.name)
     textfile.save
     # Update the local file
     write_to_associated_file = Writer.new
-    write_to_associated_file.textfile(textfile.location, old_location)
+    unless write_to_associated_file.textfile(textfile.location, old_location)
+      # Revert name and location if the write failed, as textfile is now corrupt
+      # Note that contents do NOT revert
+      textfile.name = old_name
+      textfile.location = old_location
+      textfile.save
+      false
+    else
+      true
+    end
   end
 
   # Uses form data to check if tag transfers set by user are valid,

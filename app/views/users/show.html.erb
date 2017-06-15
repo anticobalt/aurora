@@ -1,4 +1,9 @@
-<%= render partial: "/shared/top", locals: {title: "Home"} %>
+<% title = "Home" %>
+
+<% extra_nav_items = [] %>
+<% extra_nav_items << link_to("Create .txt File", new_textfile_path) %>
+
+<%= render partial: "/shared/top", locals: {title: title, extra_nav_items: extra_nav_items} %>
 <div id="parent">
   <%= render partial: "/shared/textfile_feed", locals: {textfiles: @textfiles} %>
   <%= render partial: "/shared/tags", locals: {tags: @tags} %>
