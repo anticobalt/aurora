@@ -1,10 +1,24 @@
+require 'pathname'
+
 class StringConstructor
 
   def parent_directory(abs_path)
-    # E.g. "C:\\windows\\log.txt" => "C:\\windows"
-    child = abs_path.split("\\")[-1]
-    span = abs_path.length - child.length - 2 # Constant to remove trailing slashes
-    abs_path[0..span]
+    File.dirname(abs_path)
+  end
+
+  # E.g. an abs_path of "C:\\Documents\\foo\\bar.png" and root of "C:\\"
+  # => yields "Documents\\foo"; used by Textfile form
+  def relative_directory(abs_path, root)
+    # File path in style foo/bar, while everywhere else it's foo\\bar
+    relative_path = Pathname.new(abs_path).relative_path_from Pathname.new(root)
+    relative_path_str = relative_path.to_s.gsub!("/", "\\")
+    dir = self.parent_directory relative_path_str
+    # Handle file being in root level
+    unless dir == "."
+      return dir
+    else
+      return ""
+    end
   end
 
   def snippet(text)

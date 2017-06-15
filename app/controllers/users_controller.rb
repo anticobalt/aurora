@@ -15,7 +15,7 @@ class UsersController < ApplicationController
   def show
     # Essentially the index for Textfile and Tag
     @user = User.find(params[:id])
-    @textfiles = Textfile.all
+    @textfiles = Textfile.by_join_date
     @tags = ActsAsTaggableOn::Tag.all
     update = Updater.new
     # Changes is an array of hashes

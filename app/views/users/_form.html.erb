@@ -12,16 +12,14 @@
         <%= f.text_field :home, class: "small_input_box" %><br>
         <span class="minor_text">Example: C:\windows\system32</span>
       </p>
-        <h3>Display Mode for .txt Files</h3>
+      <h3>Display Mode for .txt Files</h3>
       <p class="main_text">
         <%= f.radio_button :textfile_display_mode, "wysiwyg"%>
         <%= f.label :textfile_display_mode, "WYSIWYG", value: "wysiwyg" %>
         <%= f.radio_button :textfile_display_mode, "alternative" %>
         <%= f.label :textfile_display_mode, "Alternative", value: "alternative" %>
       </p>
-      <p>
-        <%= f.submit "Save Preferences", class: "submit_button" %>
-      </p>
+      <p><%= f.submit "Save Preferences", class: "submit_button" %></p>
     </div>
   <% end %>
 </div>

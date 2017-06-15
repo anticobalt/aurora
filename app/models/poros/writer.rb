@@ -1,16 +1,24 @@
 # Write (to) files based on edit forms
-# May involve renaming files
+# May involve renaming/deleting files
 
 class Writer
 
-  def textfile(new_abs_path, old_name)
+  def textfile(new_abs_path, old_abs_path)
+      new_name = new_abs_path.split("\\")[-1]
+      old_name = old_abs_path.split("\\")[-1]
+      construct = StringConstructor.new
+      new_pd = construct.parent_directory new_abs_path
+      old_pd = construct.parent_directory old_abs_path
+
+      if new_pd != old_pd
+        # Instead of moving, delete and recreate
+        File.delete(old_abs_path)
+      elsif new_name != old_name
+        File.rename(pd + "\\" + old_name, new_abs_path)
+      end
 
       tf = Textfile.find_by(location: new_abs_path)
-      new_name = new_abs_path.split("\\")[-1]
-      construct = StringConstructor.new
-      pd = construct.parent_directory tf.location
-
-      File.rename(pd + "\\" + old_name, new_abs_path) unless new_name == old_name
+      Dir.mkdir new_pd unless File.exists? new_pd
       File.open(new_abs_path, "w") do |f|
         # tf.contents has the correct number of CRLF characters,
         # => but the output file of f.write(tf.contents) has twice as many.

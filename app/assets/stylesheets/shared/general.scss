@@ -66,11 +66,11 @@ a#link_to_top{
 }
 
 h2, h3, .main_text, .minor_text, .small_input_box, .large_input_box,
-.submit_button, .nav_link{
+.submit_button, .nav_link, .partial_input_box{
   font-family: 'Raleway', sans-serif;
 }
 
-.main_text, .small_input_box, .large_input_box, .nav_link{
+.main_text, .small_input_box, .large_input_box, .nav_link, .partial_input_box{
   font-size: 18px;
 }
 
@@ -86,6 +86,10 @@ h2, h3, .main_text, .minor_text, .small_input_box, .large_input_box,
 .large_input_box{
   width: 100%;
   resize: none;
+}
+
+.partial_input_box{
+  width: 30%;
 }
 
 .submit_button{

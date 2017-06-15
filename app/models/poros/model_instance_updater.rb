@@ -22,18 +22,16 @@ class ModelInstanceUpdater
     return [tf, new]
   end
 
-  def textfile_from_form(textfile, textfile_params)
-    # Remember old name and update name and contents
-    old_name = textfile.name
+  def textfile_from_form(textfile, textfile_params, new_parent_directory)
+    # Remember old location and update name and contents
+    old_location = textfile.location
     textfile.update(textfile_params)
     # Update location
-    construct = StringConstructor.new
-    pd = construct.parent_directory textfile.location
-    textfile.location = pd + "\\" + textfile.name
+    textfile.location = new_parent_directory + "\\" + textfile.name
     textfile.save
     # Update the local file
     write_to_associated_file = Writer.new
-    write_to_associated_file.textfile(textfile.location, old_name)
+    write_to_associated_file.textfile(textfile.location, old_location)
   end
 
   # Uses form data to check if tag transfers set by user are valid,
