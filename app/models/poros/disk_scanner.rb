@@ -1,4 +1,5 @@
 # Reads and checks directories/files
+require 'pathname'
 
 class DiskScanner
 
@@ -20,6 +21,43 @@ class DiskScanner
       end
     end
     return files
+  end
+
+  # Windows only
+  def self.real_filepath(path)
+    # Assumes path is sanitized
+    levels = path.split("\\")
+    case_corrected_path = ""
+    # Drive root is always uppercase
+    case_corrected_path << levels[0].upcase + "\\"
+    levels_corrected = 1
+
+    # Check each level for case insensitive folder name match,
+    # => building corrected path name. If some levels don't exist yet, just make them
+    found = true # Assume folder exists
+    until levels.length == levels_corrected
+      # If directories from here on are new
+      unless found
+        case_corrected_path << levels[levels_corrected] + "\\"
+        levels_corrected += 1
+        next
+      end
+      # Dir.entries requires path have "\\", otherwise it defaults to working directory
+      Dir.entries(case_corrected_path).each do |obj|
+        if obj.casecmp(levels[levels_corrected]) == 0
+          case_corrected_path << obj + "\\"
+          levels_corrected += 1
+          found = true
+          break
+        end
+        # If existing loop without finding anything that matches, this is set
+        # Signals that new folders need to be created, so scanning not required
+        found = false
+      end
+    end
+
+    # last character is "\\", which is redundant
+    return case_corrected_path[0...-1]
   end
 
 end

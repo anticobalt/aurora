@@ -5,7 +5,7 @@ class User < ApplicationRecord
   # data is for holding temporary values
   serialize :data, Array
   validate :directory_valid?
-  before_save :remove_extra_slashes
+  before_save :remove_extra_slashes, :fix_folder_cases
 
   def directory_valid?
     if self.home == ""
@@ -23,6 +23,11 @@ class User < ApplicationRecord
   # Also, if user decides to add 20 forward slashes, remove them
   def remove_extra_slashes
     self.home = StringConstructor.sanitized_filepath self.home
+  end
+
+  # Windows only
+  def fix_folder_cases
+    self.home = DiskScanner.real_filepath self.home
   end
 
 end

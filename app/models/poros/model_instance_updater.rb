@@ -5,14 +5,13 @@ class ModelInstanceUpdater
   # Unable to discern brand new files from files that have been moved/renamed
   def self.textfile_from_file(abs_path)
     # Force directory path name to be lowercase because Windows is case-insensitive
-    directory = abs_path.split("\\")[0...-1].join("\\").downcase # end bound is exclusive
     name = abs_path.split("\\")[-1]
-    tf = Textfile.find_by(location: directory + "\\" + name)
+    tf = Textfile.find_by(location: abs_path)
     if tf.nil?
       tf = Textfile.new
       # Filepath's directory levels are seperated by "\" (see disk_scanner.rb)
       tf.name = name
-      tf.location = directory + "\\" + name
+      tf.location = abs_path
       tf.tag_list.add("new")
       new = true
     else
@@ -32,12 +31,15 @@ class ModelInstanceUpdater
     if textfile_params[:name].include?("\\") or textfile_params[:name].include?("/")
       return false
     end
-    # Remember old location/name (the two attributes that might be invalid) and update
+    # Remember old location/name (the two attributes that might be invalid)
     old_location = textfile.location
     old_name = textfile.name
+    # Blanket update all attributes
     textfile.update(textfile_params)
-    # Sanitize file path string, update location and save
+    # Fix name and location, update, save
     textfile.location = StringConstructor.sanitized_filepath(new_parent_directory + "\\" + textfile.name)
+    textfile.location = DiskScanner.real_filepath(textfile.location)
+    textfile.name = textfile.location.split("\\")[-1] # Name now also real_filepath'd
     textfile.save
     # Update the local file
     unless DiskWriter.textfile(textfile.location, old_location)
