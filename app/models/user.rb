@@ -5,14 +5,14 @@ class User < ApplicationRecord
   # data is for holding temporary values
   serialize :data, Array
   validate :directory_valid?
-  before_save :remove_trailing_slash
+  before_save :remove_extra_slashes
 
   def directory_valid?
     if self.home == ""
       errors.add("Missing field:", "Home directory not entered.")
     # Blank home directory is invalid, and satisfies the below condition,
     # but Rails can't work with an empty string as the message key
-  elsif not DiskScanner.directory_valid? self.home
+    elsif not Dir.exists? self.home
       errors.add(self.home, "is an invalid directory.")
     end
   end
@@ -20,10 +20,9 @@ class User < ApplicationRecord
   # model_instance_updater.rb already adds slashes between filename and parent directory
   # => when constructing file location strings, so trailing slashes are redundant
   # Remove them if user adds them
-  def remove_trailing_slash
-    if self.home[-1] == "\\"
-      self.home = self.home[0..-2]
-    end
+  # Also, if user decides to add 20 forward slashes, remove them
+  def remove_extra_slashes
+    self.home = StringConstructor.sanitized_filepath self.home
   end
 
 end

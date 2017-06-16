@@ -2,7 +2,7 @@
 
 class ModelInstanceRefresher
 
-  def self.everything
+  def self.everything # except archived Textfiles
     changes = self.home
     self.tags
     return changes
@@ -27,10 +27,17 @@ class ModelInstanceRefresher
       end
     end
 
-    # Track old Textfiles that are not longer in user's designated directory
+    # Handle old Textfiles that are not longer in user's designated directory
     Textfile.all.each do |tf|
       unless textfiles_in_directory.include? tf
-        textfiles_lost << tf
+        # If not in directory but still exists, archive it
+        if File.exist? tf.location
+          tf.archived = true
+          tf.save
+        else
+          # Otherwise, queue it for modification check and potential deletion
+          textfiles_lost << tf
+        end
       end
     end
     # If there are new files found, get potentially changed and selectively delete old files;

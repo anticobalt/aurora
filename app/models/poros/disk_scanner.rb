@@ -22,8 +22,4 @@ class DiskScanner
     return files
   end
 
-  def self.directory_valid?(directory)
-    Dir.exists? directory
-  end
-
 end

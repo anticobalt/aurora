@@ -4,12 +4,15 @@ class ModelInstanceUpdater
 
   # Unable to discern brand new files from files that have been moved/renamed
   def self.textfile_from_file(abs_path)
-    tf = Textfile.find_by(location: abs_path)
+    # Force directory path name to be lowercase because Windows is case-insensitive
+    directory = abs_path.split("\\")[0...-1].join("\\").downcase # end bound is exclusive
+    name = abs_path.split("\\")[-1]
+    tf = Textfile.find_by(location: directory + "\\" + name)
     if tf.nil?
       tf = Textfile.new
       # Filepath's directory levels are seperated by "\" (see disk_scanner.rb)
-      tf.name = abs_path.split("\\")[-1]
-      tf.location = abs_path
+      tf.name = name
+      tf.location = directory + "\\" + name
       tf.tag_list.add("new")
       new = true
     else
@@ -18,6 +21,8 @@ class ModelInstanceUpdater
     File.open(abs_path, "r") do |f|
       tf.contents = f.readlines.join("")
     end
+    # Updating means it's automatically no longer archived
+    tf.archived = false
     tf.save
     return [tf, new]
   end

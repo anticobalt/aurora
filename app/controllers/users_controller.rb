@@ -15,7 +15,7 @@ class UsersController < ApplicationController
   def show
     # Essentially the index for Textfile and Tag
     @user = User.find(params[:id])
-    @textfiles = Textfile.by_join_date
+    @textfiles = Textfile.in_home.by_join_date
     @tags = ActsAsTaggableOn::Tag.all
     # Changes is an array of hashes
     changes = ModelInstanceRefresher.everything

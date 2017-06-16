@@ -22,7 +22,7 @@
         <%= link_to(t.name.titleize, tag_path(t)) %><%= "," unless t.equal?(@textfile.tags.last) %>
       <% end %>
     </p>
-    <p class="main_text"><b>Location:</b> <%= @textfile.location %></p>
+    <p class="main_text"><b>Location:</b> <%= @textfile.location.downcase %></p>
     <hr>
     <% contents_list.each do |line| %>
       <% unless @wysiwyg %>
