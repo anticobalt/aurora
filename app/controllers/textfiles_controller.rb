@@ -9,14 +9,14 @@ class TextfilesController < ApplicationController
 
   def create
     # Almost identical to update
-    @textfile = Textfile.new
+    @textfile = Textfile.new(textfile_params)
+    @textfile.form_data = params
     @user = User.first
-    pd = @user.home + "\\" + params[:textfile][:location_partial]
-    if ModelInstanceUpdater.textfile_from_form(@textfile, textfile_params, pd)
+    if @textfile.save
       flash.notice = "File '#{@textfile.name}' created."
       redirect_to textfile_path(@textfile)
     else
-      flash.notice = "Invalid file name or directory."
+      flash.notice = @textfile.errors.full_messages[0]
       redirect_back(fallback_location: user_path(@user))
     end
   end
@@ -42,13 +42,15 @@ class TextfilesController < ApplicationController
 
   def update
     @textfile = Textfile.find(params[:id])
+    @textfile.form_data = params
     @user = User.first
-    pd = @user.home + "\\" + params[:textfile][:location_partial]
-    if ModelInstanceUpdater.textfile_from_form(@textfile, textfile_params, pd)
+    if @textfile.update(textfile_params)
       flash.notice = "File '#{@textfile.name}' updated."
       redirect_to textfile_path(@textfile)
     else
-      flash.notice = "Invalid file name or directory."
+      # Save the contents to database anyways, to be more user-friendly
+      @textfile.update_column('contents', params[:textfile][:contents])
+      flash.notice = @textfile.errors.full_messages[0]
       redirect_back(fallback_location: textfile_path(@textfile))
     end
   end

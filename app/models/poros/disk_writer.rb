@@ -5,16 +5,25 @@ require 'fileutils'
 
 class DiskWriter
 
-  def self.textfile(new_abs_path, old_abs_path=nil)
-    # Duplicate used for argument because the original is frozen/immutable
+  def self.save_textfile(old_abs_path, new_abs_path, contents)
+    unless self.change_path(old_abs_path, new_abs_path)
+      return false
+    end
+    unless self.write_textfile(new_abs_path, contents)
+      return false
+    end
+    return true
+  end
+
+  # Rename or move*; false only if error, true otherwise
+  def self.change_path(old_abs_path, new_abs_path)
     new_name = new_abs_path.split("\\")[-1]
     new_pd = StringConstructor.parent_directory new_abs_path
-
     unless old_abs_path.nil?
       old_name = old_abs_path.split("\\")[-1]
       old_pd = StringConstructor.parent_directory old_abs_path
       if new_pd != old_pd
-        # Instead of moving, delete and recreate
+        # *Instead of moving, delete and recreate
         File.delete(old_abs_path)
       elsif new_name != old_name
         begin
@@ -23,12 +32,16 @@ class DiskWriter
           return false
         end
       end
+    else
+      return true
     end
+  end
 
-    tf = Textfile.find_by(location: new_abs_path)
+  def self.write_textfile(path, contents)
     begin
+      new_pd = StringConstructor.parent_directory path
       FileUtils::mkdir_p new_pd unless File.exists? new_pd
-      File.open(new_abs_path, "w") do |f|
+      File.open(path, "w") do |f|
         # tf.contents has the correct number of CRLF characters,
         # => but the output file of f.write(tf.contents) has twice as many.
         # I think f.write() is treating \r and \n as two seperate newline characters
@@ -37,14 +50,13 @@ class DiskWriter
         # => right number of newlines, while Notepad++ does not.
         # i.e I have no idea wtf is wrong, but this hack fixes it
         # => (for Notepad++ on Windows).
-        contents = tf.contents.gsub("\r\n", "\n")
+        contents.gsub!("\r\n", "\n")
         f.write(contents)
       end
-      true
+      return true
     rescue Errno::EINVAL
-      false
+      return false
     end
-
   end
 
 end
