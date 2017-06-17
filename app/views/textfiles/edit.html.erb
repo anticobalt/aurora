@@ -1,3 +1,8 @@
 <% title = "Editing '#{@textfile.name}'" %>
-<%= render partial: "/shared/top", locals: {title: title} %>
+
+<% extra_nav_items = [] %>
+<% message = "Are you sure you want to delete this file? It will be removed from local drive." %>
+<% extra_nav_items << link_to("Delete File", textfile_path(@textfile), method: :delete, data: {Confirm: message}) %>
+
+<%= render partial: "/shared/top", locals: {title: title, extra_nav_items: extra_nav_items} %>
 <%= render partial: 'form' %>

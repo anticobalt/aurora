@@ -26,7 +26,6 @@ class TextfilesController < ApplicationController
     @user = User.first
     @tags = ActsAsTaggableOn::Tag.all
     @textfile = Textfile.find(params[:id])
-    # If true, contents closely resemble original txt file's formatting
     if @user.textfile_display_mode == "wysiwyg"
       @wysiwyg = true
     elsif @user.textfile_display_mode == "alternative"
@@ -53,6 +52,18 @@ class TextfilesController < ApplicationController
       flash.notice = @textfile.errors.full_messages[0]
       redirect_back(fallback_location: textfile_path(@textfile))
     end
+  end
+
+  def destroy
+    @textfile = Textfile.find(params[:id])
+    @user = User.first
+    @textfile.destroy
+    if DiskWriter.delete(@textfile.location)
+      flash.notice = "File '#{@textfile.name}' successfully deleted."
+    else
+      flash.notice = "#{@textfile.name} sucessfully removed from app, but not found on disk."
+    end
+    redirect_to user_path(@user)
   end
 
 end

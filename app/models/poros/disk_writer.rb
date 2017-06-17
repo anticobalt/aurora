@@ -40,7 +40,7 @@ class DiskWriter
   def self.write_textfile(path, contents)
     begin
       new_pd = StringConstructor.parent_directory path
-      FileUtils::mkdir_p new_pd unless File.exists? new_pd
+      FileUtils::mkdir_p new_pd unless Dir.exists? new_pd
       File.open(path, "w") do |f|
         # tf.contents has the correct number of CRLF characters,
         # => but the output file of f.write(tf.contents) has twice as many.
@@ -56,6 +56,15 @@ class DiskWriter
       return true
     rescue Errno::EINVAL
       return false
+    end
+  end
+
+  def self.delete(path)
+    if File.exist?(path)
+      FileUtils.rm(path)
+      true
+    else
+      false
     end
   end
 
