@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170615231557) do
+ActiveRecord::Schema.define(version: 20170618200908) do
 
   create_table "taggings", force: :cascade do |t|
     t.integer  "tag_id"
@@ -52,6 +52,7 @@ ActiveRecord::Schema.define(version: 20170615231557) do
     t.datetime "updated_at",            null: false
     t.text     "data"
     t.string   "textfile_display_mode"
+    t.text     "tag_categories"
   end
 
 end

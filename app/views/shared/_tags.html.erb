@@ -1,13 +1,31 @@
+<% archived = Textfile.where(archived: true) %>
 <div id="right">
   <div>
     <h2 id="sidebar_title">All Tags</h2>
     <span class="minor_text"><%= link_to("Create", new_tag_path) %></span>
   </div>
-  <ul>
-    <% tags.each do |tag| %>
-        <li class="main_text">
-          <%= link_to(tag.name.titleize, tag_path(tag)) %> (<%= tag.taggings_count %>)
+  <ul><% @user.tag_categories.each do |category| %>
+    <li class="main_text"><details>
+      <summary><%= category[:name] %></summary>
+      <ul>
+        <% category[:tags].each do |tag_name| %>
+          <li>
+            <% tag = ActsAsTaggableOn::Tag.find_by(name: tag_name) %>
+            <% tag_link = link_to(tag.name.titleize, tag_path(tag)) %>
+            <% tagged = Textfile.tagged_with(tag.name) %>
+            <% archive_num = archived.select{|t| tagged.include?(t)}.length %>
+            <%= tag_link %> (<%= "#{tagged.length} total, #{archive_num} archived" %>)
+          </li>
+        <% end %>
+        <li>
+          <% if category[:name] == "Unorganized" %>
+            <% link = link_to("Untagged", show_untagged_user_path(@user)) %>
+            <% untagged_num = Textfile.all.select{|t| t.tag_list.empty?}.length %>
+            <% archive_num = archived.select{|t| t.tag_list.empty?}.length %>
+            <%= link %> (<%="#{untagged_num} total, #{archive_num} archived" %>)
+          <% end %>
         </li>
-    <% end %>
-  </ul>
+    </ul>
+    </li>
+  <% end %></ul>
 </div>

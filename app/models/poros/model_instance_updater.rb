@@ -10,7 +10,6 @@ class ModelInstanceUpdater
       # Filepath's directory levels are seperated by "\" (see disk_scanner.rb)
       tf.name = abs_path.split("\\")[-1]
       tf.location = abs_path
-      tf.tag_list.add("new")
       new = true
     else
       new = false

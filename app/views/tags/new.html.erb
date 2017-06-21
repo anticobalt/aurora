@@ -7,10 +7,16 @@
 
 <%= form_tag(url_for(:controller => "tags", :action => "create"), :method => "post") do |f| %>
   <div id="center">
-    <div class="justify_center"><p class="main_text">
-      <%= label_tag "name", "Tag Name" %><br>
-      <%= text_field_tag "name", nil, class: "small_input_box justify_center" %>
-    </p></div>
+    <div class="justify_center">
+      <p class="main_text">
+        <%= label_tag "tag_name", "Tag Name: " %><br>
+        <%= text_field_tag "tag_name", nil, class: "small_input_box justify_center" %>
+      </p>
+      <p class="main_text">
+        <%= label_tag "category_name", "Tag Category: " %><br>
+        <%= text_field_tag "category_name", nil, class: "small_input_box justify_center" %>
+      </p>
+    </div>
     <%= render partial: "mass_edit" %>
     <p><%= submit_tag "Save", class: "submit_button" %></p>
   </div>

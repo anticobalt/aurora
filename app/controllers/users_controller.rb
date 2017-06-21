@@ -39,6 +39,7 @@ class UsersController < ApplicationController
 
   def create
     @user = User.new(user_params)
+    @user.tag_categories << {name: "Unorganized", tags:[]}
     if @user.save
       flash.notice = "Preferences saved."
       redirect_to user_path(@user)
@@ -68,8 +69,8 @@ class UsersController < ApplicationController
     @no_scroll = true
   end
 
-# With this, if user moves/renames files outside of app (e.g. in the OS filesystem)
-# => tags can be migrated from old to new file model instances
+  # With this, if user moves/renames files outside of app (e.g. in the OS filesystem)
+  # => tags can be migrated from old to new file model instances
   def verify_file_changes_for
     @user = User.find(params[:id])
     if ModelInstanceUpdater.transfer_tags params
@@ -83,6 +84,13 @@ class UsersController < ApplicationController
       redirect_to view_file_changes_for_user_path(@user)
     end
   end
+
+  def show_untagged
+    @user = User.find(params[:id])
+    @textfiles = Textfile.all.select{|t| t.tag_list.empty?}
+    @tags = ActsAsTaggableOn::Tag.all
+  end
+
 end
 
 # User.delete_all

@@ -5,15 +5,14 @@ Rails.application.routes.draw do
     member do
       get :view_file_changes_for, :as => :view_file_changes_for
       post :verify_file_changes_for, :as => :verify_file_changes_for
+      get "untagged" => "users#show_untagged", :as => :show_untagged
     end
   end
   resources :textfiles
   resources :tags do
     member do
-      get :edit, :as => :edit
-      post :update, :as => :update
-      get :rename, :as => :rename
-      post :do_rename, :as => :do_rename
+      post :change_tagged, :as => :change_tagged
+      post :change_properties, :as => :change_properties
     end
   end
 end

@@ -6,7 +6,7 @@ class Textfile < ApplicationRecord
 
   before_validation :cache
   validate :name_legal?, :name_not_in_use?
-  before_save :write_to_disk
+  before_save :set_category_for_new_tags, :write_to_disk
 
   def form_data=(params)
     @params = params
@@ -40,6 +40,16 @@ class Textfile < ApplicationRecord
       same_name_tf = Textfile.find_by(location: self.location)
       unless same_name_tf.nil? or same_name_tf == self
         errors.add(self.location, "already exists. Choose another name.")
+      end
+    end
+  end
+
+  # If new tags are created through form, add them to "Unorganized"
+  def set_category_for_new_tags
+    self.tag_list.each do |tag|
+      unless TagPseudomodel.tag_with_name tag
+        unorganized = User.first.tag_categories.find{|c| c[:name] == "Unorganized"}
+        unorganized[:tags] << tag
       end
     end
   end

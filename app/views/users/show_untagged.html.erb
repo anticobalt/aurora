@@ -1,0 +1,8 @@
+<% title = "Untagged Files" %>
+
+<%= render partial: "/shared/top", locals: {title: title} %>
+
+<div id="parent">
+  <%= render partial: "/shared/textfile_feed", locals: {textfiles: @textfiles} %>
+  <%= render partial: "/shared/tags", locals: {tags: @tags} %>
+</div>

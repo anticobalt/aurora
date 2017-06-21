@@ -4,6 +4,7 @@
 class User < ApplicationRecord
   # data is for holding temporary values
   serialize :data, Array
+  serialize :tag_categories, Array
   validate :directory_valid?
   before_save :remove_extra_slashes, :fix_folder_cases
 
