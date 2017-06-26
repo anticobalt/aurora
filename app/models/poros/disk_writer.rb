@@ -2,6 +2,7 @@
 # Involves renaming/deleting/creating files
 
 require 'fileutils'
+require 'json'
 
 class DiskWriter
 
@@ -28,9 +29,12 @@ class DiskWriter
       elsif new_name != old_name
         begin
           File.rename(old_abs_path, new_abs_path)
+          return true
         rescue Errno::EINVAL
           return false
         end
+      else
+        return true
       end
     else
       return true
@@ -66,6 +70,27 @@ class DiskWriter
     else
       false
     end
+  end
+
+  def self.export_user_data(user, textfiles)
+    hash = {
+      user: {
+        home: user.home,
+        textfile_dm: user.textfile_display_mode,
+        categories: user.tag_categories
+      },
+      textfiles: []
+    }
+    textfiles.each do |tf|
+      hash[:textfiles] << {location: tf.location, tags: tf.tag_list, archived: tf.archived}
+    end
+    folder = user.home + "\\json-exports\\"
+    file = folder + Time.now.strftime("%Y%m%d%H%M%S") + ".json"
+    FileUtils::mkdir_p folder unless Dir.exists? folder
+    File.open(file, "w") do |f|
+      f.write(JSON.pretty_generate(hash))
+    end
+    return true
   end
 
 end

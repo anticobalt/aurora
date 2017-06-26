@@ -14,7 +14,7 @@ class UsersController < ApplicationController
   # Decides if file verification or default show is rendered
   def show
     # Essentially the index for Textfile and Tag
-    @user = User.find(params[:id])
+    @user = User.first # instead of User.find(params[:id]), to handle importing new user
     @textfiles = Textfile.in_home.by_join_date
     @tags = ActsAsTaggableOn::Tag.all
     # Changes is an array of hashes
@@ -89,6 +89,24 @@ class UsersController < ApplicationController
     @user = User.find(params[:id])
     @textfiles = Textfile.all.select{|t| t.tag_list.empty?}
     @tags = ActsAsTaggableOn::Tag.all
+  end
+
+  def export
+    @user = User.find(params[:id])
+    @tags = ActsAsTaggableOn::Tag.all
+    @textfiles = Textfile.all
+    if DiskWriter.export_user_data(@user, @textfiles)
+      flash.notice = "User data was exported with time stamp."
+    else
+      flash.notice = "Export failed."
+    end
+    redirect_back(fallback_location: users_path)
+  end
+
+  def import
+    @user = User.find(params[:id])
+    flash.notice = ModelInstanceUpdater.user_data_from_import @user
+    redirect_back(fallback_location: users_path)
   end
 
 end

@@ -59,4 +59,48 @@ class ModelInstanceUpdater
     return true
   end
 
+  def self.user_data_from_import(user)
+    folder = user.home + "\\json-exports\\"
+    if Dir.exists? folder
+      jsons = Dir.entries(folder).sort
+      unless jsons.empty?
+        to_load = jsons[-1] # get most recent export
+        hash = JSON.parse File.read(folder + to_load) # key by string, not symbol
+        Destroyer.everything
+        self.user_from_hash(hash['user']) # also creates categories
+        self.textfiles_from_hash(hash['textfiles']) # also creates tags
+        return "Data successfully imported."
+      else
+        return "There is no data for this home directory (no data to import from #{folder})."
+      end
+    else
+      return "There is no data for this home directory (#{folder} doesn't exist)."
+    end
+  end
+
+  def self.user_from_hash(hash)
+    user = User.new
+    user.home = hash['home']
+    user.textfile_display_mode = hash['textfile_dm']
+    user.tag_categories = []
+    hash['categories'].each do |category|
+      user.tag_categories << category.symbolize_keys
+    end
+    user.save
+  end
+
+  def self.textfiles_from_hash(array)
+    array.each do |hash|
+      tf = Textfile.new
+      tf.location = hash['location']
+      tf.name = tf.location.split("\\")[-1]
+      tf.archived = hash['archived']
+      tf.tag_list = hash['tags']
+      File.open(tf.location, "r") do |f|
+        tf.contents = f.readlines.join("")
+      end
+      tf.save
+    end
+  end
+
 end

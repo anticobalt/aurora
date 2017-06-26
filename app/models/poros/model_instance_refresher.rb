@@ -56,9 +56,14 @@ class ModelInstanceRefresher
     end
   end
 
-  def self.tags
+  def self.tags # Handles tags and categories
     ActsAsTaggableOn::Tag.all.each do |tag|
       if tag.taggings_count == 0
+        user = User.first
+        category_with_tag = user.tag_categories.find {|c| c[:tags].include? tag.name}
+        if category_with_tag
+          category_with_tag[:tags].delete(tag.name)
+        end
         tag.destroy
       end
     end

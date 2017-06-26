@@ -1,5 +1,8 @@
+<% warning = "Imported data will replace existing data. Most recently saved data will be used. Continue?" %>
 <% nav_items = [] %>
 <% nav_items << link_to("Home", users_path) %>
+<% nav_items << link_to("Import Data", import_user_path(@user), data: {Confirm: warning}) %>
+<% nav_items << link_to("Export Data", export_user_path(@user)) %>
 <% nav_items << link_to("Preferences", "#", id: "preferences_link", class: "popup_link") %>
 
 <div id="header_container">

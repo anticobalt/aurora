@@ -46,10 +46,15 @@ class Textfile < ApplicationRecord
 
   # If new tags are created through form, add them to "Unorganized"
   def set_category_for_new_tags
-    self.tag_list.each do |tag|
-      unless TagPseudomodel.tag_with_name tag
-        unorganized = User.first.tag_categories.find{|c| c[:name] == "Unorganized"}
-        unorganized[:tags] << tag
+    if @params
+      self.tag_list.each do |tag|
+        unless TagPseudomodel.tag_with_name tag
+          # Using User.first.tag_categories.find{} doesn't update the user
+          user = User.first
+          unorganized = user.tag_categories.find {|c| c[:name] == "Unorganized"}
+          unorganized[:tags] << tag
+          user.save
+        end
       end
     end
   end

@@ -6,6 +6,8 @@ Rails.application.routes.draw do
       get :view_file_changes_for, :as => :view_file_changes_for
       post :verify_file_changes_for, :as => :verify_file_changes_for
       get "untagged" => "users#show_untagged", :as => :show_untagged
+      get :import, :as => :import
+      get :export, :as => :export
     end
   end
   resources :textfiles

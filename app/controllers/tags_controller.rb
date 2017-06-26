@@ -45,7 +45,7 @@ class TagsController < ApplicationController
     @tag = ActsAsTaggableOn::Tag.find(params[:id])
     @user = User.first
     tag_with_same_name = TagPseudomodel.tag_with_name params["tag_name"]
-    if tag_with_same_name
+    if tag_with_same_name and tag_with_same_name.id != @tag.id
       flash.notice = "Tag name '#{params["tag_name"]}' in use by another tag"
     else
       TagPseudomodel.update_properties(params, @tag, @user)
@@ -74,10 +74,12 @@ class TagsController < ApplicationController
       redirect_to new_tag_path
     else
       tag = TagPseudomodel.tag_with_name params["tag_name"]
-      TagPseudomodel.save_taggings(params, params["tag_name"], @textfiles)
       if tag # If trying to create a tag that already exists
         flash.notice = "Tag already exists. Added tagged files to existing tag."
+        # Save must be after tag_with_name check
+        TagPseudomodel.save_taggings(params, params["tag_name"], @textfiles)
       else
+        TagPseudomodel.save_taggings(params, params["tag_name"], @textfiles)
         tag = ActsAsTaggableOn::Tag.find_by(name: params["tag_name"])
         TagPseudomodel.create_properties(params, tag, @user)
         flash.notice = "Tag '#{tag.name.titleize}' created."

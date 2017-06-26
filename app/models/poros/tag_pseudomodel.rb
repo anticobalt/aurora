@@ -33,7 +33,12 @@ class TagPseudomodel
       unorganized = user.tag_categories.find{|c| c[:name] == "Unorganized"}
       unorganized[:tags] << params[:tag_name]
     else
-      user.tag_categories << {name: params[:category_name], tags: [params[:tag_name]]}
+      existing_categ = user.tag_categories.find {|c| c[:name] == params[:category_name]}
+      if existing_categ # if category exists, add the new tag to it
+        existing_categ[:tags] << params[:tag_name]
+      else # otherwise create new category with new tag
+        user.tag_categories << {name: params[:category_name], tags: [params[:tag_name]]}
+      end
     end
     tag.save && tag.reload && user.save && user.reload
   end
