@@ -42,7 +42,6 @@ li.nav_link_right{
 div.fixed-topcenter{
   position: fixed;
   top: 0;
-  // Manually centering
-  left: 50%;
+  left: 50%; // Manually centering
   transform: translate(-50%, 0);
 }

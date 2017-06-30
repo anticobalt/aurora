@@ -23,7 +23,7 @@ $(document).ready(function(){
     return false;
   });
   $(".close_button").click(function(){
-    // wrapper will be non-null because previous function always run first
+    // wrapper will be non-null because previous click function always runs first
     wrapper.css("display", "none");
     return false;
   });
@@ -44,13 +44,11 @@ $(document).ready(function(){
   $(".left_button").each(function(){
     var page_number = parseInt($(this).attr("id").slice(-1));
     var active = true
-    // If on the first page, arrow does nothing
-    if (page_number == 1){
+    if (page_number == 1){ // If on the first page, arrow does nothing
       $(this).css("cursor", "default");
       active = false
     };
-    // On click, hide current page and show previous page
-    $(this).click(function(){
+    $(this).click(function(){ // On click, hide current page and show previous page
       if (active){
         $("div#page_" + String(page_number)).css("display", "none");
         $("div#page_" + String(page_number - 1)).css("display", "block");
@@ -61,13 +59,11 @@ $(document).ready(function(){
     var page_number = parseInt($(this).attr("id").slice(-1));
     var total_pages = $("div.popup_page").length;
     var active = true
-    // If on the last page, arrow does nothing
-    if (page_number == total_pages){
+    if (page_number == total_pages){ // If on the last page, arrow does nothing
       $(this).css("cursor", "default");
       active = false;
     };
-    // On click, hide current page and show previous page
-    $(this).click(function(){
+    $(this).click(function(){ // On click, hide current page and show previous page
       if (active){
         $("div#page_" + String(page_number)).css("display", "none");
         $("div#page_" + String(page_number + 1)).css("display", "block");

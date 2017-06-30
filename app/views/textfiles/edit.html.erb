@@ -1,5 +1,6 @@
-<% title = "Editing '#{@textfile.name}'" %>
+<% # Loads top and page for form %>
 
+<% title = "Editing '#{@textfile.name}'" %>
 <% extra_nav_items = [] %>
 <% message = "Are you sure you want to delete this file? It will be removed from local drive." %>
 <% extra_nav_items << link_to("Delete File", textfile_path(@textfile), method: :delete, data: {Confirm: message}) %>

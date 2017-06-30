@@ -1,7 +1,6 @@
 require 'pathname'
 
 class StringConstructor
-
   def self.parent_directory(abs_path)
     File.dirname(abs_path)
   end
@@ -45,6 +44,7 @@ class StringConstructor
       # If text is long despite not having a lot of lines
       if text.scan(/.{1,70}/).length > lines.length
         snip = text[0...20*70] + (text[20*70..-1].split("\n")[0]).to_s
+
       # If text is short character-wise but has a lot of lines
       elsif lines.length >= 20
         snip = lines[0..20].join("\n")
@@ -53,8 +53,8 @@ class StringConstructor
     return self.bbcode_to_html(snip)
   end
 
+  # Supports bold, italics, underline, strikethrough
   def self.bbcode_to_html(text)
-    # Supports bold, italics, underline, strikethrough
     converted_text = text.dup
     bb_html_pairs = {"[b]": "<strong>",
                       "[/b]": "</strong>",
@@ -70,9 +70,9 @@ class StringConstructor
     return converted_text
   end
 
+  # Yes, I manually copied this from an online generator and formatted it.
+  # Not gonna install a gem just to generate some pseudo-Latin.
   def self.lorem_ipsum
-    # Yes, I manually copied this from an online generator and formatted it.
-    # Not gonna install a gem just to generate some pseudo-Latin.
     "Lorem ipsum dolor sit amet, ei veniam nonumy honestatis sit, id vim nonumy impetus torquatos, " +
     "vix impetus veritus posidonium id? Et eam nonumy hendrerit constituam. Omnis aliquando eu per. " +
     "Dicta legimus graecis in cum! Prompta consulatu sit ea. Ut has affert dignissim. " +

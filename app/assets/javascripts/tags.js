@@ -1,4 +1,4 @@
-// Watch button to hide/show all previews
+// Watches button to hide/show all previews
 $(document).ready(function(){
   var shown = true;
   $("#toggle_all_previews_button").click(function(){
@@ -13,11 +13,15 @@ $(document).ready(function(){
   });
 });
 
-// Watch button to hide/show associated preview
+// Watches button to hide/show associated preview
 $(document).ready(function(){
   $(".toggle_preview_button").click(function(){
-    // Button and associated preview div share a class.
-    // Namely, the id of the textfile model instance.
+    /*
+    Button and associated preview div share a class.
+    Namely, the id of the textfile model instance.
+    Example: Button has classes toggle_preview_button and 142,
+    Div has classes preview and 142.
+    */
     var file_id = $(this).attr("class").split(" ")[1];
     var preview = $("div." + file_id);
     if (preview.css("display") == "none"){

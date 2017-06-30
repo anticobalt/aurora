@@ -1,3 +1,5 @@
+# Methods: new/create, show, edit/update, destroy
+
 class TextfilesController < ApplicationController
   include TextfilesHelper
 

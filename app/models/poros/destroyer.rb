@@ -1,5 +1,3 @@
-# Only purpose as of now is for debugging
-
 class Destroyer
 
   def self.everything

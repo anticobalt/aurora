@@ -1,10 +1,10 @@
-<% title = "Create a New Tag" %>
+<% # Loads top and page for mass tag assignment %>
 
+<% title = "Create a New Tag" %>
 <% extra_nav_items = [] %>
 <% extra_nav_items << link_to("Toggle All Previews", "#", {id: "toggle_all_previews_button"}) %>
 
 <%= render partial: "/shared/top", locals: {title: title, link: "toggle_all_previews", extra_nav_items: extra_nav_items} %>
-
 <%= form_tag(url_for(:controller => "tags", :action => "create"), :method => "post") do |f| %>
   <div id="center">
     <div class="justify_center">

@@ -1,10 +1,11 @@
+<% # Loads top, textfile feed for files with tag, and tag list sidebar %>
+
 <% title = "Files Tagged with '#{@tag.name.titleize}'" %>
 
 <% extra_nav_items = [] %>
 <% extra_nav_items << link_to("Manage Tag", edit_tag_path(@tag)) %>
 
 <%= render partial: "/shared/top", locals: {title: title, extra_nav_items: extra_nav_items} %>
-
 <div id="parent">
   <%= render partial: "/shared/textfile_feed", locals: {textfiles: @textfiles} %>
   <%= render partial: "/shared/tags", locals: {tags: @tags} %>

@@ -19,9 +19,9 @@ class User < ApplicationRecord
   end
 
   # model_instance_updater.rb already adds slashes between filename and parent directory
-  # => when constructing file location strings, so trailing slashes are redundant
-  # Remove them if user adds them
-  # Also, if user decides to add 20 forward slashes, remove them
+  # => when constructing file location strings, so trailing slashes are redundant.
+  # Remove them if user adds them.
+  # Also, if user decides to add 20 forward slashes, remove them.
   def remove_extra_slashes
     self.home = StringConstructor.sanitized_filepath self.home
   end
@@ -30,5 +30,4 @@ class User < ApplicationRecord
   def fix_folder_cases
     self.home = DiskScanner.real_filepath self.home
   end
-
 end

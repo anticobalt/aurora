@@ -1,7 +1,6 @@
 # Refreshes models so that they are representative of recent changes
 
 class ModelInstanceRefresher
-
   def self.everything # except archived Textfiles
     changes = self.home
     self.tags
@@ -40,6 +39,7 @@ class ModelInstanceRefresher
         end
       end
     end
+
     # If there are new files found, get potentially changed and selectively delete old files;
     # => otherwise, just delete everything that's old
     unless textfiles_possibly_modified.empty?
@@ -68,5 +68,4 @@ class ModelInstanceRefresher
       end
     end
   end
-
 end

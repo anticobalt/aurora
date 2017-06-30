@@ -1,36 +1,12 @@
+# Methods: new/create, index*, show*, show_untagged, edit/update,
+# => view_file_changes_for/verify_file_changes_for, export, import
+
+# *index decides whether to create new user or show the existing user.
+# *show either displays all textfiles and tags, or displays popup prompting user
+# => to verify file changes if required.
+
 class UsersController < ApplicationController
   include UsersHelper
-
-  def index
-    # Only one user exists at a time
-    @users = User.all
-    if @users.length == 1
-      redirect_to user_path(User.first)
-    else
-      redirect_to new_user_path
-    end
-  end
-
-  # Decides if file verification or default show is rendered
-  def show
-    # Essentially the index for Textfile and Tag
-    @user = User.first # instead of User.find(params[:id]), to handle importing new user
-    @textfiles = Textfile.in_home.by_join_date
-    @tags = ActsAsTaggableOn::Tag.all
-    # Changes is an array of hashes
-    changes = ModelInstanceRefresher.everything
-    unless changes.empty?
-      # @user.data should be an empty array, but to be foolproof...
-      @user.data = []
-      changes.each { |change| @user.data << change }
-      # ... and is now an array of hashes (which each have an array)
-      @user.save
-      @no_scroll = true
-      render "view_file_changes_for"
-    else
-      render "show"
-    end
-  end
 
   def new
     @user = User.new
@@ -47,6 +23,40 @@ class UsersController < ApplicationController
       flash.notice = @user.errors.full_messages[0]
       redirect_to new_user_path
     end
+  end
+
+  def index
+    # Only one user exists at a time
+    @users = User.all
+    if @users.length == 1
+      redirect_to user_path(User.first)
+    else
+      redirect_to new_user_path
+    end
+  end
+
+  # Decides if file verification or default show is rendered
+  def show
+    @user = User.first # instead of User.find(params[:id]), to handle importing new user
+    @textfiles = Textfile.in_home.by_join_date
+    @tags = ActsAsTaggableOn::Tag.all
+    # Changes is an array of hashes
+    changes = ModelInstanceRefresher.everything
+    unless changes.empty?
+      @user.data = [] # ensure @user.data is empty
+      changes.each { |change| @user.data << change } # data is array of hashes of arrays
+      @user.save
+      @no_scroll = true
+      render "view_file_changes_for"
+    else
+      render "show"
+    end
+  end
+
+  def show_untagged
+    @user = User.find(params[:id])
+    @textfiles = Textfile.all.select{|t| t.tag_list.empty?}
+    @tags = ActsAsTaggableOn::Tag.all
   end
 
   def edit
@@ -85,12 +95,6 @@ class UsersController < ApplicationController
     end
   end
 
-  def show_untagged
-    @user = User.find(params[:id])
-    @textfiles = Textfile.all.select{|t| t.tag_list.empty?}
-    @tags = ActsAsTaggableOn::Tag.all
-  end
-
   def export
     @user = User.find(params[:id])
     @tags = ActsAsTaggableOn::Tag.all
@@ -110,6 +114,3 @@ class UsersController < ApplicationController
   end
 
 end
-
-# User.delete_all
-# ActiveRecord::Base.connection.execute("DELETE from sqlite_sequence where name = 'users'")

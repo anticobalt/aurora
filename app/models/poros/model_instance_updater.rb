@@ -1,14 +1,12 @@
 # Load and saves model instances
 
 class ModelInstanceUpdater
-
   # Unable to discern brand new files from files that have been moved/renamed
   def self.textfile_from_file(abs_path)
     tf = Textfile.find_by(location: abs_path)
     if tf.nil?
       tf = Textfile.new
-      # Filepath's directory levels are seperated by "\" (see disk_scanner.rb)
-      tf.name = abs_path.split("\\")[-1]
+      tf.name = abs_path.split("\\")[-1] # filepaths have "\" (see disk_scanner.rb)
       tf.location = abs_path
       new = true
     else
@@ -17,8 +15,7 @@ class ModelInstanceUpdater
     File.open(abs_path, "r") do |f|
       tf.contents = f.readlines.join("")
     end
-    # Updating means it's automatically no longer archived
-    tf.archived = false
+    tf.archived = false # Updating means it's automatically no longer archived
     tf.save
     return [tf, new]
   end
@@ -35,8 +32,10 @@ class ModelInstanceUpdater
         transfers[key] = value
       end
     end
+
     # Verify that form was filled completely by user
     if transfers.length == 0 then return false end
+
     # Check for duplicate targets
     seen = []
     transfers.each do |key, value|
@@ -46,6 +45,7 @@ class ModelInstanceUpdater
         seen << value
       end
     end
+
     # Do tag transfer, and delete old model instances
     transfers.each do |key, value|
       source = Textfile.find(key)
@@ -56,6 +56,7 @@ class ModelInstanceUpdater
       end
       source.destroy
     end
+
     return true
   end
 
@@ -65,7 +66,7 @@ class ModelInstanceUpdater
       jsons = Dir.entries(folder).sort
       unless jsons.empty?
         to_load = jsons[-1] # get most recent export
-        hash = JSON.parse File.read(folder + to_load) # key by string, not symbol
+        hash = JSON.parse File.read(folder + to_load) # keyed by string, not symbol
         Destroyer.everything
         self.user_from_hash(hash['user']) # also creates categories
         self.textfiles_from_hash(hash['textfiles']) # also creates tags

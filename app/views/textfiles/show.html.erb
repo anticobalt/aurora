@@ -1,3 +1,6 @@
+<% # Decides whether to load textfile contents or display error, %>
+<% # => then loads top, textfile details, and contents/error %>
+
 <% begin %>
   <% contents = StringConstructor.bbcode_to_html(@textfile.contents) %>
   <% # Probably will break in Linux. %>
@@ -11,7 +14,6 @@
 <% extra_nav_items << link_to("Edit File", edit_textfile_path(@textfile)) %>
 
 <%= render partial: "/shared/top", locals: {title: "Viewing '#{@textfile.name}'", extra_nav_items: extra_nav_items} %>
-
 <div id="parent">
   <div id="left">
     <p class="main_text">
@@ -41,7 +43,6 @@
         </span>
       <% end %>
     <% end %>
-    <p class="nav_link"><%= link_to("Return to all files", user_path(@user)) %></p>
   </div>
   <%= render partial: "/shared/tags", locals: {tags: @tags} %>
 </div>

@@ -1,7 +1,6 @@
 class Textfile < ApplicationRecord
   acts_as_taggable
-  # Scope has to be a block
-  scope :by_join_date, -> {order("created_at DESC")}
+  scope :by_join_date, -> {order("created_at DESC")} # Scope has to be a block
   scope :in_home, -> {where(archived: false)}
 
   before_validation :cache
@@ -16,9 +15,9 @@ class Textfile < ApplicationRecord
     @old_location = self.location if @params
   end
 
+  # Check for invalid characters (part 1)
   def name_legal?
     if @params
-      # Check for invalid characters (part 1)
       if self.name.include?("\\") or self.name.include?("/")
         errors.add("Invalid name:", "Slashes not allowed in names.")
       elsif self.name == ""
@@ -36,6 +35,7 @@ class Textfile < ApplicationRecord
       self.location = StringConstructor.sanitized_filepath(new_parent_directory + "\\" + self.name)
       self.location = DiskScanner.real_filepath(self.location)
       self.name = self.location.split("\\")[-1] # Name now also real_filepath'd
+
       # Check if file already exists in that location
       same_name_tf = Textfile.find_by(location: self.location)
       unless same_name_tf.nil? or same_name_tf == self
@@ -49,8 +49,7 @@ class Textfile < ApplicationRecord
     if @params
       self.tag_list.each do |tag|
         unless TagPseudomodel.tag_with_name tag
-          # Using User.first.tag_categories.find{} doesn't update the user
-          user = User.first
+          user = User.first # Using User.first.tag_categories.find{} doesn't update the user
           unorganized = user.tag_categories.find {|c| c[:name] == "Unorganized"}
           unorganized[:tags] << tag
           user.save
@@ -59,14 +58,13 @@ class Textfile < ApplicationRecord
     end
   end
 
+  # Check for invalid characters (part 2)
   def write_to_disk
     if @params and errors.empty?
-      # Check for invalid characters (part 2)
       unless DiskWriter.save_textfile(@old_location, self.location, self.contents)
         errors.add("Write to disk failed:", "check for invalid characters in '#{self.location}'")
         throw(:abort)
       end
     end
   end
-
 end
