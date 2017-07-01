@@ -26,6 +26,7 @@
     </p>
     <p class="main_text"><b>Location:</b> <%= @textfile.location %></p>
     <hr>
+
     <% contents_list.each do |line| %>
       <% unless @wysiwyg %>
         <p class="main_text" %>
@@ -42,6 +43,10 @@
           <% end %>
         </span>
       <% end %>
+    <% end %>
+
+    <% if @wysiwyg %>
+      <br>
     <% end %>
   </div>
   <%= render partial: "/shared/tags", locals: {tags: @tags} %>

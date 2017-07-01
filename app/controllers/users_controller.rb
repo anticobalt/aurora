@@ -40,8 +40,8 @@ class UsersController < ApplicationController
     @user = User.first # instead of User.find(params[:id]), to handle importing new user
     @textfiles = Textfile.in_home.by_join_date
     @tags = ActsAsTaggableOn::Tag.all
-    # Changes is an array of hashes
-    changes = ModelInstanceRefresher.everything
+    changes = ModelInstanceRefresher.everything # Changes is an array of hashes
+    @user = User.first # user attributes may have changed due to previous call
     unless changes.empty?
       @user.data = [] # ensure @user.data is empty
       changes.each { |change| @user.data << change } # data is array of hashes of arrays

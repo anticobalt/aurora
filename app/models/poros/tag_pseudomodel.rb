@@ -53,11 +53,22 @@ class TagPseudomodel
 
     # If category of tag was changed in form
     if tag_category[:name] != params[:category_name]
-      # Add new tag name to new category
-      user.tag_categories << {name: params[:category_name], tags: [params[:tag_name]]}
+      existing_categ = user.tag_categories.find {|c| c[:name] == params[:category_name]}
+
+      # If category already exists, add tag to it
+      if existing_categ
+        existing_categ[:tags] << params[:tag_name]
+
+      # Otherwise add new tag name to new category
+      else
+        user.tag_categories << {name: params[:category_name], tags: [params[:tag_name]]}
+      end
+
       # Remove old tag name from old category and delete old category if needed
       tag_category[:tags].delete(tag.name)
-      user.tag_categories.delete(tag_category) if tag_category[:tags].empty?
+      if tag_category[:tags].empty? and tag_category[:name] != "Unorganized"
+        user.tag_categories.delete(tag_category)
+      end
 
     # If name (but not category) was changed
     elsif not tag_category.include? params[:tag_name]

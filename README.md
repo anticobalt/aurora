@@ -1,24 +1,55 @@
-# README
+# Aurora
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+A tag-centric file browser with a web-browser front. Written in Ruby 2.3.3 and Rails 5.0.2, for Windows 7.
 
-Things you may want to cover:
+<img src="https://vgy.me/RsWRPw.png" alt="Screenshot">
 
-* Ruby version
+## Features
+- Read, edit, move, rename, delete local .txt files
+- Tag files, and organize tags in categories
+- Quickly tag/untag many files at once
+- BBCode support
+- Recover from file renames/moves that are done outside of app
+- Import and export app state (e.g. tags, categories, preferences)
 
-* System dependencies
+## How to Use
+0. Install Rails and Ruby. I haven't tested any versions other than the ones I used.
+1. Download repository or `git clone` in terminal
+2. In terminal/CMD, `cd` to program root
+3. `bundle install`
+4. `rake db:create` and `rake db:migrate`
+5. `rails s` and go to localhost:3000 in Chrome or Firefox
 
-* Configuration
+## To-Do
+- **Improve category management**
+- **Warn about file extension changes**
+- **Support images (jpg, png, maybe other formats)**
+- **Auto-tag files based on criteria (e.g. file name includes x, image resolution > y)**
+- **Linux support**
+- Remove dependency on internet for fonts
+- Support for other browsers (Opera, Edge, etc)
+- Change font and colors in preferences
+- Support other file types (.docx, etc)
+- Set a favicon and custom error pages
 
-* Database creation
+## Known Bugs
+- Slow, particularily on initial server load
+- Warnings persist if you hit the browser back/forward button
+- Checkboxes styled incorrectly in Firefox
+- If you enter an invalid filename/directory when creating txt file, and submit, everything related to that file will be lost. Problem doesn't exist when updating an already existing txt file.
+- If a category is empty due to all tags being deleted, it won't be removed.
 
-* Database initialization
+## (Hypothetical) FAQs
+#### Why are you using Rails for a desktop program?
+~~At this point in time the only languages I *really* knew were Python and Ruby. No one really seems to care for Ruby unless Rails is involved, so I figured I'd learn Rails. At the same time, I developed the need for the sort of program that Aurora became, so, hitting two birds with one stone, I did my first project in Rails and developed a program I wanted but couldn't find elsewhere. Furthermore, both Ruby and Python don't seem to have good GUIs avaliable (all the good ones are on C++ or Java, I guess), so HTML/CSS/JS became the obvious way to go, given my circumstances.~~ Who am I kidding, Rails was a terrible framework to use. I should've used the time to learn Java. Well, at least it does the job, and I learned a thing or two about webdev.
+#### Why aren't Tags/Textfiles nested under Users?
+The gem Acts-As-Taggable-On, which is used to allow for tagging, prevents modification to the Tag model. Therefore, I can't set Tags as a nested resource or put it in a :belongs_to relationship with Users. Since I can't nest Tags, I left Textfiles unnested as well, to keep everything consistent and on the same hierarchical level.
+#### Why are you consistently accessing model attributes from outside of their controllers?
+This is a consequence of the above problem.
+#### Why do(es) the colours/fonts/layout look terrible?
+I don't really have a keen eye for this kind of thing, unfortunately. They look pretty good to me.
+#### Why did you remove Coffeescript?
+Incompatible with 64-bit Windows, which I'm using.
 
-* How to run the test suite
-
-* Services (job queues, cache servers, search engines, etc.)
-
-* Deployment instructions
-
-* ...
+## License
+[MIT](LICENSE).

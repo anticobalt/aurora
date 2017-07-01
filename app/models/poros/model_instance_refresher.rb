@@ -65,6 +65,7 @@ class ModelInstanceRefresher
           category_with_tag[:tags].delete(tag.name)
         end
         tag.destroy
+        user.save
       end
     end
   end

@@ -25,7 +25,7 @@ class Helper
         # => and associated new files that might be the old file but modified
         potentially_renamed << {old_file: old_tf}
         potentially_renamed[-1][:type] = "renamed"
-        potentially_renamed[-1][:new_files] = new.select {|tf| DiskScanner.parent_directory(tf.location) == folder}
+        potentially_renamed[-1][:new_files] = new.select {|tf| StringConstructor.parent_directory(tf.location) == folder}
       end
 
     end
