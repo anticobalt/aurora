@@ -34,7 +34,7 @@ class TagsController < ApplicationController
         TagPseudomodel.save_taggings(params, params["tag_name"], @textfiles)
         tag = ActsAsTaggableOn::Tag.find_by(name: params["tag_name"])
         TagPseudomodel.create_properties(params, tag, @user)
-        flash.notice = "Tag '#{tag.name.titleize}' created."
+        flash.notice = "Tag '#{tag.name}' created."
       end
       redirect_to tag_path(tag)
     end
@@ -61,7 +61,7 @@ class TagsController < ApplicationController
     @user = User.first
     @textfiles = Textfile.all
     TagPseudomodel.save_taggings(params, @tag.name, @textfiles, prevent_remove = false)
-    flash.notice = "Tag '#{@tag.name.titleize}' updated."
+    flash.notice = "Tag '#{@tag.name}' updated."
     unless @tag.taggings_count == 0
       redirect_to tag_path(@tag)
     else
@@ -90,7 +90,7 @@ class TagsController < ApplicationController
     tag_category[:tags].delete(@tag.name)
     @user.tag_categories.delete(tag_category) if tag_category[:tags].empty?
     @user.save
-    flash.notice = "Tag '#{@tag.name.titleize}' deleted."
+    flash.notice = "Tag '#{@tag.name}' deleted."
     redirect_to user_path(@user)
   end
 

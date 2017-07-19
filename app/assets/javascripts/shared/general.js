@@ -16,3 +16,16 @@ $(document).ready(function(){
     return false; // prevents reload on click
   });
 });
+
+// Show/hide hidden elements when parent element clicked
+$(document).ready(function(){
+  $(".hidden_components").click(function(){
+    $(this).find(".hidden").each(function(){
+      if ($(this).css("display") == "none"){
+        $(this).css("display", "block");
+      } else if ($(this).css("display") == "block"){
+        $(this).css("display", "none")
+      };
+    });
+  });
+});

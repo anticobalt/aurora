@@ -1,6 +1,6 @@
 <% # Loads top, textfile feed for files with tag, and tag list sidebar %>
 
-<% title = "Files Tagged with '#{@tag.name.titleize}'" %>
+<% title = "Files Tagged with '#{@tag.name}'" %>
 
 <% extra_nav_items = [] %>
 <% extra_nav_items << link_to("Manage Tag", edit_tag_path(@tag)) %>

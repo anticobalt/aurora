@@ -21,7 +21,7 @@
       <b>Tags:</b>
       <% # Manually creating a list of tag links because the gem doesn't seem to support it %>
       <% @textfile.tags.each do |t| %>
-        <%= link_to(t.name.titleize, tag_path(t)) %><%= "," unless t.equal?(@textfile.tags.last) %>
+        <%= link_to(t.name, tag_path(t)) %><%= "," unless t.equal?(@textfile.tags.last) %>
       <% end %>
     </p>
     <p class="main_text"><b>Location:</b> <%= @textfile.location %></p>

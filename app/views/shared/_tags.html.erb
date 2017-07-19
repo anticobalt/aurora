@@ -12,24 +12,30 @@
     <li class="main_text"><details>
       <summary><%= category[:name] %></summary>
       <ul>
-        <% category[:tags].each do |tag_name| %>
-          <li>
+        <% category[:tags].sort.each do |tag_name| %>
+          <li class="hidden_components">
             <% tag = ActsAsTaggableOn::Tag.find_by(name: tag_name) %>
-            <% tag_link = link_to(tag.name.titleize, tag_path(tag)) %>
+            <% tag_link = link_to(tag.name, tag_path(tag)) %>
             <% tagged = Textfile.tagged_with(tag.name) %>
             <% archive_num = archived.select{|t| tagged.include?(t)}.length %>
-            <%= tag_link %> (<%= "#{tagged.length} total, #{archive_num} archived" %>)
+            <%= tag_link %>
+            <span class="minor_text hidden">
+              <%= " (#{tagged.length} total, #{archive_num} archived)" %>
+            </span>
           </li>
         <% end %>
-        <li>
+        <li class="hidden_components">
           <% if category[:name] == "Unorganized" %>
             <% link = link_to("Untagged", show_untagged_user_path(@user)) %>
             <% untagged_num = Textfile.all.select{|t| t.tag_list.empty?}.length %>
             <% archive_num = archived.select{|t| t.tag_list.empty?}.length %>
-            <%= link %> (<%="#{untagged_num} total, #{archive_num} archived" %>)
+            <%= link %>
+            <span class="minor_text hidden">
+              <%=" (#{untagged_num} total, #{archive_num} archived)" %>
+            </span>
           <% end %>
         </li>
     </ul>
-    </li>
+  </details></li>
   <% end %></ul>
 </div>
